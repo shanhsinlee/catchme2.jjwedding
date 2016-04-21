@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>抓寵囉</title>
+<style type="text/css"> 
+	.nonce {display: none;}
+	div.row {clear: both;}
+	img {width: 50%;}
+</style> 
+<script type="text/javascript" src="js/shake.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+</head>
+<body>
+
+<center>
+	<div class="nonce"></div>
+
+	<div class="row">
+		<img src="image/ball.jpg" align="right">
+	</div>
+	
+	<div class="row">
+		<img src="image/donz.jpg" align="left">
+	</div>
+
+	<div class="row">
+		<hr />
+		<div class="row" id="score">
+		0
+		</div>
+	</div>
+	
+</center>
+
+
+<script type="text/javascript">
+	
+	var shakeThreshold = 10;
+
+	var score = $('#score');
+
+	var shake = 0;
+	var shakeQ = 0;
+	var totalShake = 0;
+
+	var timer = null;
+	var shaker = null;
+
+	$(function(){
+		setTimer();
+		shaker = new Shake({
+	        threshold: 10,
+			timeout: 100
+	    }).start();
+		$(window).bind('shake', onShake);
+	});
+
+    function onShake () {
+		shake++;
+		totalShake++;
+		score.text(totalShake);
+		if (shake>submitThreshold) submitShake();
+    }
+
+	function submitShake(){
+		shakeQ += shake;
+		shake = 0;
+		var success = openUrl('shake', shakeQ);
+		if (success) shakeQ = 0;
+		clearTimeout(timer);
+		setTimer();
+	}
+
+	function setTimer(){
+		timer = setTimeout( function(){
+			submitShake();
+		}, 5000 );
+	}
+	
+
+</script>
+
+</body>
+</html>

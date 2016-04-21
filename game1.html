@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>打鼓囉</title>
+<style type="text/css"> 
+	.nonce {display: none;}
+	img {width: 50%;}
+</style> 
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/util.js"></script>
+</head>
+<body>
+
+<center>
+	<div class="nonce"></div>
+	<div onmousedown="onMouseDown();" onmouseup="onMouseUp();" ontouchstart="onMouseDown();" ontouchend="onMouseUp();">
+		<img id="imgMouseUp" src="image/drum.up.jpg" >
+		<img id="imgMouseDown" src="image/drum.down.jpg" >
+	</div>
+	<hr />
+	<div id="score">0</div>
+</center>
+
+<script type="text/javascript">
+	
+	var submitThreshold = 10;
+
+	var imgDown = $('#imgMouseDown')[0];
+	var imgUp = $('#imgMouseUp')[0];
+	var score = $('#score');
+
+	var hit = 0;
+	var hitQ = 0;
+	var totalHit = 0;
+
+	var timer = null;
+
+	$(function(){
+		onMouseUp();
+		setTimer();
+	});
+
+	function onMouseDown (){
+		imgUp.style.display = "none";
+		imgDown.style.display = "block"
+		hit++;
+		totalHit++;
+		score.text(totalHit);
+		if (hit>submitThreshold) submitHit();
+	}
+
+	function onMouseUp (){
+		imgUp.style.display = "block";
+		imgDown.style.display = "none"
+	}
+
+	function submitHit(){
+		hitQ += hit;
+		hit = 0;
+		var success = openUrl('hit', hitQ);
+		if (success) hitQ = 0;
+		clearTimeout(timer);
+		setTimer();
+	}
+
+	function setTimer(){
+		timer = setTimeout( function(){
+			submitHit();
+			alert
+		}, 5000 );
+	}
+	
+
+</script>
+
+</body>
+</html>

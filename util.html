@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>Shake.js</title>
+<style type="text/css">
+body {
+    background: #E9E9E9;
+    color: #333;
+    font: 1em/1.3em "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif; /* 16px / 21px */
+    text-shadow: rgba(255,255,255,0.8) 0 1px 0;
+    text-align: center;
+}
+</style>
+<script type="text/javascript" src="js/shake.js"></script>
+</head>
+<body>
+
+shack:<span id="count">0</span>
+
+<br><br>
+靜態旋轉<br>
+alpha:<span id="alpha"></span><br/>
+beta:<span id="beta"></span><br/>
+gamma:<span id="gamma"></span><br/>
+<br>
+三軸加速度<br>
+accel_X:<span id="accel_X"></span><br/>
+accel_Y:<span id="accel_Y"></span><br/>
+accel_Z:<span id="accel_Z"></span><br/>
+<br>
+三軸重力加速度<br>
+accel_inc_gravity_X:<span id="accel_inc_gravity_X"></span><br/>
+accel_inc_gravity_Y:<span id="accel_inc_gravity_Y"></span><br/>
+accel_inc_gravity_Z:<span id="accel_inc_gravity_Z"></span><br/>
+
+<script type="text/javascript">
+window.onload = function() {
+
+    //create a new instance of shake.js.
+    var myShakeEvent = new Shake({
+        threshold: 10,
+		timeout: 100
+    });
+
+    // start listening to device motion
+    myShakeEvent.start();
+
+    // register a shake event
+    window.addEventListener('shake', shakeEventDidOccur, false);
+
+    //shake event callback
+    function shakeEventDidOccur () {
+
+        //put your own code here etc.
+        //alert('Shake!');
+		var div = document.getElementById("count");
+		var c = div.innerHTML;
+		c++;
+		div.innerHTML = c;
+		
+    }
+	
+	if(window.DeviceOrientationEvent) {
+		window.addEventListener('deviceorientation', function(event) {
+	  var a = document.getElementById('alpha');
+			  b = document.getElementById('beta');
+			  g = document.getElementById('gamma');
+			  alpha = event.alpha;
+			  beta = event.beta;
+			  gamma = event.gamma;
+
+	  a.innerHTML = Math.round(alpha);
+	  b.innerHTML = Math.round(beta);
+	  g.innerHTML = Math.round(gamma);
+	  
+	  
+
+		}, false);
+	}else{
+		//document.querySelector('body').innerHTML = '你的瀏覽器不支援喔';
+		document.getElementById("count").innerHTML = 'gg';
+	}
+	
+	if (window.DeviceMotionEvent) {
+		// Add listener
+
+		window.addEventListener('devicemotion', deviceMotionHandler, false);
+	} else {
+		console.log('DeviceMotionEvent not support');
+	}
+	
+	function deviceMotionHandler(event)
+	{
+	  // Get the data
+	var accel_X = event.acceleration.x;
+	  var accel_Y = event.acceleration.y;
+	  var accel_Z = event.acceleration.z;
+	  var accel_inc_gravity_X = event.accelerationIncludingGravity.x;
+	  var accel_inc_gravity_Y = event.accelerationIncludingGravity.y;
+	  var accel_inc_gravity_Z = event.accelerationIncludingGravity.z;
+	  
+	  document.getElementById('accel_X').innerHTML = Math.round(accel_X);
+	  document.getElementById('accel_Y').innerHTML = Math.round(accel_Y);
+	  document.getElementById('accel_Z').innerHTML = Math.round(accel_Z);
+	  
+	  document.getElementById('accel_inc_gravity_X').innerHTML = Math.round(accel_inc_gravity_X);
+	  document.getElementById('accel_inc_gravity_Y').innerHTML = Math.round(accel_inc_gravity_Y);
+	  document.getElementById('accel_inc_gravity_Z').innerHTML = Math.round(accel_inc_gravity_Z);
+	}
+};
+
+
+
+
+</script>
+</body>
+</html>
