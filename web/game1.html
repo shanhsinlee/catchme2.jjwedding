@@ -34,7 +34,9 @@
 
 	<script type="text/javascript">
 		
-		var submitThreshold = 10;
+		var isTouch = false;
+	
+		var hitThreashold = 10;
 
 		var imgDown = $('#imgMouseDown')[0];
 		var imgUp = $('#imgMouseUp')[0];
@@ -47,22 +49,30 @@
 		var timer = null;
 
 		$(function(){
+			isTouch = true;
 			onMouseUp();
 			setTimer();
 		});
 
 		function onMouseDown (){
-			imgUp.style.display = "none";
-			imgDown.style.display = "inline";
-			hit++;
-			totalHit++;
-			score.text(totalHit);
-			if (hit>submitThreshold) submitHit();
+			if (!isTouch) {
+				isTouch = true;
+				imgUp.style.display = "none";
+				imgDown.style.display = "block"
+				hit++;
+				totalHit++;
+				score.text(totalHit);
+				if (hit>hitThreashold) submitHit();
+			} 
+			
 		}
 
 		function onMouseUp (){
-			imgUp.style.display = "inline";
-			imgDown.style.display = "none";
+			if (isTouch) {
+				isTouch = false;
+				imgUp.style.display = "block";
+				imgDown.style.display = "none"
+			}
 		}
 
 		function submitHit(){
@@ -77,7 +87,6 @@
 		function setTimer(){
 			timer = setTimeout( function(){
 				submitHit();
-				alert
 			}, 5000 );
 		}
 		
