@@ -1,80 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<title>打鼓囉</title>
-<style type="text/css"> 
-	.nonce {display: none;}
-	img {width: 50%;}
-</style> 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/util.js"></script>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>打鼓囉</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<script type="text/javascript" src="js/util.js"></script>
 </head>
 <body>
-
-<center>
-	<div class="nonce"></div>
-	<div onmousedown="onMouseDown();" onmouseup="onMouseUp();" ontouchstart="onMouseDown();" ontouchend="onMouseUp();">
-		<img id="imgMouseUp" src="image/drum.up.jpg" >
-		<img id="imgMouseDown" src="image/drum.down.jpg" >
+	<div class="container fill background2 text-center">
+		<div class="row text-center fill">
+			<div onmousedown="onMouseDown();" onmouseup="onMouseUp();" ontouchstart="onMouseDown();" ontouchend="onMouseUp();" style="height: 50%; width: auto;">
+				<img id="imgMouseUp" class="drum" src="img/drum_up.png">
+				<img id="imgMouseDown" class="drum" src="img/drum_down.png">
+			</div>
+			<div><h2>打擊次數 <span id="score">0</span></h2></div>
+		</div>
 	</div>
-	<hr />
-	<div id="score">0</div>
-</center>
 
-<script type="text/javascript">
-	
-	var submitThreshold = 10;
+	<script type="text/javascript">
+		
+		var submitThreshold = 10;
 
-	var imgDown = $('#imgMouseDown')[0];
-	var imgUp = $('#imgMouseUp')[0];
-	var score = $('#score');
+		var imgDown = $('#imgMouseDown')[0];
+		var imgUp = $('#imgMouseUp')[0];
+		var score = $('#score');
 
-	var hit = 0;
-	var hitQ = 0;
-	var totalHit = 0;
+		var hit = 0;
+		var hitQ = 0;
+		var totalHit = 0;
 
-	var timer = null;
+		var timer = null;
 
-	$(function(){
-		onMouseUp();
-		setTimer();
-	});
+		$(function(){
+			onMouseUp();
+			setTimer();
+		});
 
-	function onMouseDown (){
-		imgUp.style.display = "none";
-		imgDown.style.display = "block"
-		hit++;
-		totalHit++;
-		score.text(totalHit);
-		if (hit>submitThreshold) submitHit();
-	}
+		function onMouseDown (){
+			imgUp.style.display = "none";
+			imgDown.style.display = "inline";
+			hit++;
+			totalHit++;
+			score.text(totalHit);
+			if (hit>submitThreshold) submitHit();
+		}
 
-	function onMouseUp (){
-		imgUp.style.display = "block";
-		imgDown.style.display = "none"
-	}
+		function onMouseUp (){
+			imgUp.style.display = "inline";
+			imgDown.style.display = "none";
+		}
 
-	function submitHit(){
-		hitQ += hit;
-		hit = 0;
-		var success = openUrl('hit', hitQ);
-		if (success) hitQ = 0;
-		clearTimeout(timer);
-		setTimer();
-	}
+		function submitHit(){
+			hitQ += hit;
+			hit = 0;
+			var success = openUrl('hit', hitQ);
+			if (success) hitQ = 0;
+			clearTimeout(timer);
+			setTimer();
+		}
 
-	function setTimer(){
-		timer = setTimeout( function(){
-			submitHit();
-			alert
-		}, 5000 );
-	}
-	
+		function setTimer(){
+			timer = setTimeout( function(){
+				submitHit();
+				alert
+			}, 5000 );
+		}
+		
 
-</script>
-
+	</script>
 </body>
 </html>

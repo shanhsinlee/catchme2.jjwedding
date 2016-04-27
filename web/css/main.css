@@ -19,6 +19,13 @@ html, body {
     background-size: auto 100%;
 }
 
+.background2 {
+	background-image: url("../img/bg2.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: auto 100%;
+}
+
 #login_bg {
 	background-image: url("../img/bg_login.jpeg");
     background-repeat: no-repeat;
@@ -34,6 +41,14 @@ html, body {
     background-position: center center;
     background-size: auto 100%;
     margin: 0.5%;
+}
+
+.drum {
+	max-width: 90%;
+	max-height: 100%;
+	background-color: #FBE9E8;
+	margin: 1%;
+	padding: 1%;
 }
 
 a#game_btn1 {
