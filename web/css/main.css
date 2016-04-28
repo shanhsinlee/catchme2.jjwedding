@@ -26,12 +26,16 @@ html, body {
     background-size: auto 100%;
 }
 
+/* Login */
+
 #login_bg {
 	background-image: url("../img/bg_login.jpeg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: auto 100%;
 }
+
+/* List */
 
 .game_btn {
 	height: 27%;
@@ -42,6 +46,8 @@ html, body {
     background-size: auto 100%;
     margin: 0.5%;
 }
+
+/* Game 1 */
 
 .drum {
 	max-width: 90%;
@@ -74,3 +80,196 @@ a#game_btn3 {
 a#game_btn3:hover {
     background-image: url(../img/button_game3h.png);
 }
+
+/* Game 2 */
+
+#background_game2 {
+	background-color: #224802;
+	background-size: auto 100%;
+}
+
+#saso {
+	max-width: 60%;
+	max-height: 100%;
+	margin: 1%;
+	padding: 1%;
+	vertical-align: top;
+}
+
+#donz {
+	max-width: 60%;
+	max-height: 100%;
+	margin: 1%;
+	padding: 1%;
+}
+
+#saso_div {
+	height: 44%;
+	text-align:right;
+	vertical-align: top;
+}
+
+#donz_div {
+	height: 44%;
+	text-align:left;
+	vertical-align: bottom;
+}
+
+#message_div {
+	height: 12%;
+	background-color: #E4F8A1;
+}
+
+#ball {
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	max-width: 10%;
+	max-height: 10%;
+}
+
+#ball.move {
+	-webkit-animation-name: movingBall;
+	-webkit-animation-duration: 2000ms;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-fill-mode: forwards;
+
+	-moz-animation-name: movingBall;
+	-moz-animation-duration: 2000ms;
+	-moz-animation-iteration-count: 1;
+
+	-ms-animation-name: movingBall;
+	-ms-animation-duration: 2000ms;
+	-ms-animation-iteration-count: 1;
+
+	-o-animation-name: movingBall;
+	-o-animation-duration: 2000ms;
+	-o-animation-iteration-count: 1;
+
+	animation-name: movingBall;
+	animation-duration: 2000ms;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes movingBall {
+  0% {
+    opacity: 1.0;
+  }
+
+  30% {
+    opacity: 0.2;
+    top: 75%;
+    left: 50%;
+  }
+
+  50% {
+  	opacity: 1.0;
+    top: 75%;
+    left: 50%;
+  }
+
+  100% {
+    opacity: 1.0;
+    top: 15%;
+    left: 80%;
+  }
+}
+
+@-moz-keyframes movingBall {
+  0% {
+    opacity: 1.0;
+  }
+
+  30% {
+    opacity: 0.2;
+    top: 75%;
+    left: 50%;
+  }
+
+  50% {
+  	opacity: 1.0;
+    top: 75%;
+    left: 50%;
+  }
+
+  100% {
+    opacity: 1.0;
+    top: 15%;
+    left: 80%;
+  }
+}
+
+@-ms-keyframes movingBall {
+  0% {
+    opacity: 1.0;
+  }
+
+  30% {
+    opacity: 0.2;
+    top: 75%;
+    left: 50%;
+  }
+
+  50% {
+  	opacity: 1.0;
+    top: 75%;
+    left: 50%;
+  }
+
+  100% {
+    opacity: 1.0;
+    top: 15%;
+    left: 80%;
+  }
+}
+
+@-o-keyframes movingBall {
+  0% {
+    opacity: 1.0;
+  }
+
+  30% {
+    opacity: 0.2;
+    top: 75%;
+    left: 50%;
+  }
+
+  50% {
+  	opacity: 1.0;
+    top: 75%;
+    left: 50%;
+  }
+
+  100% {
+    opacity: 1.0;
+    top: 15%;
+    left: 80%;
+  }
+}
+
+@keyframes movingBall {
+  0% {
+    opacity: 1.0;
+  }
+
+  30% {
+    opacity: 0.2;
+    top: 75%;
+    left: 50%;
+  }
+
+  50% {
+  	opacity: 1.0;
+    top: 75%;
+    left: 50%;
+  }
+
+  100% {
+    opacity: 1.0;
+    top: 15%;
+    left: 80%;
+  }
+}
+
+/* Game 3 */
