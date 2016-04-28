@@ -58,7 +58,7 @@
 			if (!isTouch) {
 				isTouch = true;
 				imgUp.style.display = "none";
-				imgDown.style.display = "block"
+				imgDown.style.display = "inline";
 				hit++;
 				totalHit++;
 				score.text(totalHit);
@@ -70,7 +70,7 @@
 		function onMouseUp (){
 			if (isTouch) {
 				isTouch = false;
-				imgUp.style.display = "block";
+				imgUp.style.display = "inline";
 				imgDown.style.display = "none"
 			}
 		}
