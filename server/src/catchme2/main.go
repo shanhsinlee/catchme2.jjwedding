@@ -11,7 +11,7 @@ import (
 )
 
 type DefaultResponse struct {
-	Code int8   `json:"Code"`
+	Code int8   `json:"code"`
 	Msg  string `json:"msg"`
 }
 
@@ -25,6 +25,7 @@ func main() {
 	router.GET("/test", Test)
 	router.POST("/login", Login)
 	router.POST("/user/:uid/submit", Submit)
+	router.GET("/user/:uid/score", Score)
 
 	// code execution dir
 	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
