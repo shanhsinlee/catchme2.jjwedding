@@ -26,6 +26,7 @@ func main() {
 	router.POST("/login", Login)
 	router.POST("/user/:uid/submit", Submit)
 	router.GET("/user/:uid/score", Score)
+	router.GET("/user/:uid", User)
 
 	// code execution dir
 	dir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
