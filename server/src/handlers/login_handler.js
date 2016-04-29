@@ -17,7 +17,7 @@ module.exports = (req, res) => {
 
   let uid = uuid.v4().split('-').join('')
 
-  redis.hmset(`user:${uid}`, "name", name, "captcha", captcha, (err) => {
+  redis.hmset(`user:${uid}`, "name", name, "shake", "0", "hit", "0", "connected", "false", (err) => {
     if (err) {
       return res.json({ code: 0, msg: "失敗" })
     }
