@@ -32,7 +32,6 @@ let isUidValid = (req, res, next) => {
 
 // routes
 app.get('/', handlers.index)
-app.get('/test', handlers.test)
 app.post('/login', handlers.login)
 app.post('/user/:uid/submit', isUidValid, handlers.submit)
 app.get('/user/:uid/score', isUidValid, handlers.score)
