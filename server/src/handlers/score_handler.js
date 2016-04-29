@@ -1,7 +1,6 @@
 import redis from '../utils/database.js'
 
 module.exports = (req, res) => {
-  console.log(req.query)
   let action = req.query.action
   let updateKey = ""
 
