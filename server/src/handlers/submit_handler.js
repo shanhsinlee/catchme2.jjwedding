@@ -1,7 +1,6 @@
 import redis from '../utils/database.js'
 
 module.exports = (req, res) => {
-  let uid = req.params.uid
   let action = req.body.action
   let value = req.body.value || 0 // TODO ask this value is for appending or it's a total number
   let updateKey = ""
@@ -17,7 +16,7 @@ module.exports = (req, res) => {
     return res.json({ code: 0, msg: "失敗 (未提供 action params)" })
   }
 
-  redis.hmset(`user:${uid}`, updateKey, value, (err) => {
+  redis.hmset(`user:${req.params.uid}`, updateKey, value, (err) => {
     if (err) {
       return res.json({ code: 0, msg: "失敗 (更新失敗)" })
     }
