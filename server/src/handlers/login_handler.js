@@ -19,7 +19,7 @@ module.exports = (req, res) => {
 
   redis.hmset(`user:${uid}`, "name", name, "shake", "0", "hit", "0", "connected", "false", (err) => {
     if (err) {
-      return res.json({ code: 0, msg: "失敗" })
+      return res.json({ code: 0, msg: "失敗 (更新失敗)" })
     }
     else {
       return res.json({ code: 1, msg: "成功", uid: uid, name: name })

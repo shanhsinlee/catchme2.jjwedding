@@ -25,7 +25,7 @@ let isUidValid = (req, res, next) => {
     }
     else {
       // failed
-      return res.json({ code: 0, msg: "失敗" })
+      return res.json({ code: 0, msg: "失敗 (uid 不存在)" })
     }
   })
 }
