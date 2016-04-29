@@ -3,10 +3,10 @@ import redis from '../utils/database.js'
 module.exports = (req, res) => {
   let resp = (result) => {
     if (result == null) {
-      res.json({ code: 0, msg: "not found" })
+      return res.json({ code: 0, msg: "失敗" })
     }
     else {
-      res.json(result)
+      return res.json(result)
     }
   }
 
