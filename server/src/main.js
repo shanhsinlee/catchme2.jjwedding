@@ -1,11 +1,18 @@
 import express from 'express'
 
+import handlers from './handlers'
+
+const PORT = 5566
 var app = express()
 
-app.get('/', (req, res) => {
-    res.send('hello world!')
-})
+// routes
+app.get('/', handlers.index)
+app.get('/test', handlers.test)
+app.get('/login', handlers.login)
+app.get('/user/:uid/submit', handlers.submit)
+app.get('/user/:uid/score', handlers.score)
+app.get('/user/:uid', handlers.user)
 
-app.listen(5566, () => {
-    console.log("listening on port 5566...")
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}...`)
 })
