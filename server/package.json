@@ -7,7 +7,7 @@
     "babel-node": "babel-node --presets=es2015 --ignore='foo|bar|baz'",
     "dev": "nodemon --exec npm run babel-node -- src/main.js",
     "build": "babel src -d dist",
-    "start": "node dist/main.js"
+    "start": "NODE_ENV=production node dist/main.js"
   },
   "author": "kerkerj",
   "license": "ISC",
@@ -18,7 +18,10 @@
   },
   "dependencies": {
     "body-parser": "^1.15.0",
+    "compression": "^1.6.1",
     "express": "^4.13.4",
+    "file-stream-rotator": "0.0.6",
+    "morgan": "^1.7.0",
     "node-uuid": "^1.4.7",
     "redis": "^2.6.0-2"
   }
