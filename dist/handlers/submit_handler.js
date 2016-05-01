@@ -17,14 +17,14 @@ module.exports = function (req, res) {
     updateKey = "shake";
   } else {
     // invalid action
-    return res.json({ code: 0, msg: "失敗 (未提供 action params)" });
+    return res.status(400).json({ msg: "失敗 (未提供 action params)" });
   }
 
   _database2.default.hmset("user:" + req.params.uid, updateKey, value, function (err) {
     if (err) {
-      return res.json({ code: 0, msg: "失敗 (更新失敗)" });
+      return res.status(400).json({ msg: "失敗 (更新失敗)" });
     } else {
-      return res.json({ code: 1, msg: "成功" });
+      return res.status(200).json({ msg: "成功" });
     }
   });
 };

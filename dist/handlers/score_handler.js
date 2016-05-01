@@ -7,7 +7,6 @@ var _database2 = _interopRequireDefault(_database);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = function (req, res) {
-  console.log(req.query);
   var action = req.query.action;
   var updateKey = "";
 
@@ -17,16 +16,16 @@ module.exports = function (req, res) {
     updateKey = "shake";
   } else {
     // invalid action
-    return res.json({ code: 0, msg: "失敗 (未提供 action params)" });
+    return res.status(400).json({ msg: "失敗 (未提供 action params)" });
   }
 
   _database2.default.hmget("user:" + req.params.uid, "name", updateKey, function (err, reply) {
     if (reply == null) {
-      return res.json({ code: 0, msg: "失敗 (查詢失敗)" });
+      return res.status(400).json({ msg: "失敗 (查詢失敗)" });
     } else {
       var jsonData = { name: reply[0] };
       jsonData[updateKey] = reply[1];
-      return res.json(jsonData);
+      return res.status(200).json(jsonData);
     }
   });
 };
