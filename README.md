@@ -7,7 +7,7 @@ node version v4.4.3
 ```
 第一次使用: p.s. 需要 node v4.4.3, 以及 redis
 
-$ mv config.yml.example config.yml
+$ cp config.yml.example config.yml
 
 $ npm install
 
