@@ -1,4 +1,7 @@
 import redis from 'redis'
-import configs from '../configs/config.js'
+import yaml from 'js-yaml'
+import fs from 'fs'
 
-module.exports = redis.createClient(configs.redisPort, configs.redisHost)
+let config = yaml.safeLoad(fs.readFileSync(process.cwd() + "/config.yml", 'utf8'))
+
+module.exports = redis.createClient(config.redisPort, config.redisHost)

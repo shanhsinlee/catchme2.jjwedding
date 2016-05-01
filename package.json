@@ -17,12 +17,15 @@
     "nodemon": "^1.9.1"
   },
   "dependencies": {
+    "basic-auth": "^1.0.3",
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
     "express": "^4.13.4",
     "file-stream-rotator": "0.0.6",
+    "js-yaml": "^3.6.0",
     "morgan": "^1.7.0",
     "node-uuid": "^1.4.7",
-    "redis": "^2.6.0-2"
+    "redis": "^2.6.0-2",
+    "yamljs": "^0.2.7"
   }
 }

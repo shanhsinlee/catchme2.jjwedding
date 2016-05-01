@@ -1,0 +1,5 @@
+serverPort: 5566
+redisHost: "localhost"
+redisPort: 7372
+adminBasicAuthName: "admin"
+adminBasicAuthPassword: "password"

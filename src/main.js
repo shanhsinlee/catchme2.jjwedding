@@ -3,14 +3,17 @@ import bodyParser from 'body-parser'
 import compression from 'compression'
 import morgan from 'morgan'
 import FileStreamRotator from 'file-stream-rotator'
+import basicAuth from 'basic-auth'
+import yaml from 'js-yaml'
 import fs from 'fs'
+import path from 'path'
 
 import redis from './utils/database.js'
 import handlers from './handlers'
-import configs from './configs/config.js'
 
 // predefine
-const PORT = configs.serverPort
+let config = yaml.safeLoad(fs.readFileSync(process.cwd() + "/config.yml", 'utf8'))
+const PORT = config.serverPort
 let app = express()
 
 // HTTP request logger middleware
@@ -54,18 +57,64 @@ let isUidValid = (req, res, next) => {
   })
 }
 
-// routes
-app.get('/', handlers.index)
+// TODO user check name
+let isAuthorized = (req, res, next) => {
+  if (true) {
+    return next()
+  }
+  else {
+    return res.redirect('/')
+  }
+}
+
+// admin
+let isAdmin = (req, res, next) => {
+  let credentials = basicAuth(req)
+
+  if (!credentials ||
+    credentials.name !== config.adminBasicAuthName ||
+    credentials.pass !== config.adminBasicAuthPassword) {
+    res.statusCode = 401
+    res.setHeader('WWW-Authenticate', 'Basic realm="jjwedding"')
+    res.end('Access denied!')
+  }
+  else {
+    return next()
+  }
+}
+
+// assets
+app.use('/css', express.static(__dirname + '/../public/css'))
+app.use('/images', express.static(__dirname + '/../public/images'))
+app.use('/img', express.static(__dirname + '/../public/img'))
+app.use('/js', express.static(__dirname + '/../public/js'))
+
+// htmls
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../public/login.html'))
+})
+app.get('/list', isAuthorized, (req, res) => {
+  // TODO if no name, redirect to index page
+  res.sendFile(path.join(__dirname + '/../public/list.html'))
+})
+app.get('/game1', isAuthorized, (req, res) => {
+  res.sendFile(path.join(__dirname + '/../public/game1.html'))
+})
+app.get('/game2', isAuthorized, (req, res) => {
+  res.sendFile(path.join(__dirname + '/../public/game2.html'))
+})
+app.get('/game3', isAuthorized, (req, res) => {
+  res.send("game3")
+})
+app.get('/overview', isAdmin, (req, res) => {
+  res.send("overview")
+})
+
+// api routes
 app.post('/login', handlers.login)
 app.post('/user/:uid/submit', isUidValid, handlers.submit)
 app.get('/user/:uid/score', isUidValid, handlers.score)
 app.get('/user/:uid', handlers.user)
-
-// htmls
-// app.use('/css', express.static(__dirname + '../../web/css'))
-// app.use('/images', express.static(__dirname + '../../web/images'))
-// app.use('/img', express.static(__dirname + '../../web/img'))
-// app.use('/js', express.static(__dirname + '../../web/js'))
 
 app.listen(PORT, () => {
   console.log(process.env.NODE_ENV)
