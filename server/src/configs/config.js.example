@@ -1,0 +1,5 @@
+exports.default = {
+  serverPort: 5566,
+  redisHost: "localhost",
+  redisPort: 7372
+}

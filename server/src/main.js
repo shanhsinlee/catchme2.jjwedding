@@ -3,8 +3,9 @@ import bodyParser from 'body-parser'
 
 import redis from './utils/database.js'
 import handlers from './handlers'
+import configs from './configs/config.js'
 
-const PORT = 5566
+const PORT = configs.serverPort
 var app = express()
 
 // middlewares
@@ -25,7 +26,7 @@ let isUidValid = (req, res, next) => {
     }
     else {
       // failed
-      return res.json({ code: 0, msg: "失敗 (uid 不存在)" })
+      return res.status(400).json({ msg: "失敗 (uid 不存在)" })
     }
   })
 }

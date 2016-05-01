@@ -1,6 +1,4 @@
 import redis from 'redis'
+import configs from '../configs/config.js'
 
-const REDIS_HOST = "localhost"
-const REDIS_PORT = 7372
-
-module.exports = redis.createClient(REDIS_PORT, REDIS_HOST)
+module.exports = redis.createClient(configs.redisPort, configs.redisHost)

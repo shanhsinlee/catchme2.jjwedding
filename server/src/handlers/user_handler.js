@@ -1,16 +1,12 @@
 import redis from '../utils/database.js'
 
 module.exports = (req, res) => {
-  let resp = (result) => {
+  redis.hgetall(`user:${req.params.uid}`, (err, obj) => {
     if (result == null) {
-      return res.json({ code: 0, msg: "失敗 (查詢失敗)" })
+      return res.status(400).json({ msg: "失敗 (查詢失敗)" })
     }
     else {
-      return res.json(result)
+      return res.status(200).json(result)
     }
-  }
-
-  redis.hgetall(`user:${req.params.uid}`, (err, obj) => {
-    resp(obj)
   })
 }

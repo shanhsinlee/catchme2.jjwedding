@@ -12,17 +12,17 @@ module.exports = (req, res) => {
   }
   else {
     // invalid action
-    return res.json({ code: 0, msg: "失敗 (未提供 action params)" })
+    return res.status(400).json({ msg: "失敗 (未提供 action params)" })
   }
 
   redis.hmget(`user:${req.params.uid}`, "name", updateKey, (err, reply) => {
     if (reply == null) {
-      return res.json({ code: 0, msg: "失敗 (查詢失敗)" })
+      return res.status(400).json({ msg: "失敗 (查詢失敗)" })
     }
     else {
       let jsonData = { name: reply[0] }
       jsonData[updateKey] = reply[1]
-      return res.json(jsonData)
+      return res.status(200).json(jsonData)
     }
   })
 }

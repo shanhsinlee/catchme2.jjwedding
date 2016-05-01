@@ -5,7 +5,9 @@ This project is written in Node.js with Redis.
 node version v4.4.3
 
 ```
-第一次使用: p.s. 需要 node v4.4.3, 以及 redis (TODO port 設定還沒抽出來)
+第一次使用: p.s. 需要 node v4.4.3, 以及 redis
+
+$ mv src/configs/config.js.example src/configs/config.js
 
 $ npm install
 
@@ -31,3 +33,9 @@ API WIP.
 captcha script
 
 benchmark script
+
+log
+
+web? (overview and game pages)
+
+server where?
