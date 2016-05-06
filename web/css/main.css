@@ -1,38 +1,53 @@
 html, body {
-    height: 100%;
+  height: 100%;
+  margin:0;
+  overflow-x: hidden;
 }
 
 .fill { 
-    min-height: 100%;
-    height: 100%;
+  min-height: 100%;
+  height: 100%;
 }
 
 .vertical-center {
-  	display: flex;
-  	align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .background {
 	background-image: url("../img/bg.png");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 100%;
 }
 
 .background2 {
 	background-image: url("../img/bg2.png");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 100%;
+}
+
+.background3 {
+  min-height: 100%;
+  height: 100%;
+  min-width: 100%;
+  width: 100%;
+  background-image: url("../img/bg3.png");
+  background-position: center center;
+  background-size: auto 100%;
+  overflow: hidden;
+  position: absolute;
+  margin:0;
 }
 
 /* Login */
 
 #login_bg {
 	background-image: url("../img/bg_login.jpeg");
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 100%;
 }
 
 /* List */
@@ -42,9 +57,9 @@ html, body {
 	width: 100%;
 	display: inline-block;
 	background-repeat: no-repeat;
-    background-position: center center;
-    background-size: auto 100%;
-    margin: 0.5%;
+  background-position: center center;
+  background-size: auto 100%;
+  margin: 0.5%;
 }
 
 /* Game 1 */
@@ -58,27 +73,27 @@ html, body {
 }
 
 a#game_btn1 {
-    background-image: url(../img/button_game1.png);
+  background-image: url(../img/button_game1.png);
 }
 
 #game_btn1:hover {
-    background-image: url(../img/button_game1h.png);
+  background-image: url(../img/button_game1h.png);
 }
 
 a#game_btn2 {
-    background-image: url(../img/button_game2.png);
+  background-image: url(../img/button_game2.png);
 }
 
 a#game_btn2:hover {
-    background-image: url(../img/button_game2h.png);
+  background-image: url(../img/button_game2h.png);
 }
 
 a#game_btn3 {
-    background-image: url(../img/button_game3.png);
+  background-image: url(../img/button_game3.png);
 }
 
 a#game_btn3:hover {
-    background-image: url(../img/button_game3h.png);
+  background-image: url(../img/button_game3h.png);
 }
 
 /* Game 2 */
@@ -273,3 +288,29 @@ a#game_btn3:hover {
 }
 
 /* Game 3 */
+
+#costmer {
+  position: fixed;
+  bottom: 0;
+  height: 30%;
+  left: 50%;
+  margin: 0px;
+  padding: 0px;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+  -moztransform: translate(-50%, 0);
+  -mstransform: translate(-50%, 0);
+  -otransform: translate(-50%, 0);
+}
+
+.costmer_canvas {
+  position: fixed;
+  height: 70%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+#game3_message {
+  text-align: center;
+}

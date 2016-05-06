@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title></title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<script type="text/javascript" src="js/gyro.min.js"></script>
+	<!-- <script type="text/javascript" src="js/util.js"></script> -->
+</head>
+<body class="background3">
+	<canvas id="back_convas" class="costmer_canvas"></canvas>
+	<canvas id="fore_convas" class="costmer_canvas"></canvas>
+	<img id="costmer" src="img/costmer.png">
+	<h2 id="game3_message"></h2>
+
+	<script type="text/javascript">
+		var widthRate = Math.random()*2 - 1;
+		var heightRate = Math.random();
+		var backLineRadius;
+		var foreLineAngle;
+		var prevCanvasWidth = 0, prevCanvasHeight = 0;
+		var matchStartDate;
+
+		$(function () {
+			reDraw();
+		});
+
+		$(window).resize(function() {
+			reDraw();
+		});
+
+		gyro.frequency = 10;
+		gyro.startTracking(function(o) {
+        	// o.x, o.y, o.z for accelerometer
+        	// o.alpha, o.beta, o.gamma for gyro
+        	if (o.alpha != undefined && o.alpha != null) {
+        		$('#game3_message').html('');
+
+        		if (o.alpha >= 180) {
+        			foreLineAngle = (360-o.alpha);
+        		} else {
+        			foreLineAngle = -o.alpha;
+        		}
+
+		    	drawForeLine();
+        	} else {
+        		$('#game3_message').html('您的裝置不支援陀螺儀');
+        		drawBackLine();
+        	}
+    	});
+
+		function reDraw() {
+			var backCanvas = document.getElementById("back_convas");
+			backCanvas.setAttribute('width', parseInt($(backCanvas).css('width')));
+			backCanvas.setAttribute('height', parseInt($(backCanvas).css('height')));
+			var foreCanvas = document.getElementById("fore_convas");
+			foreCanvas.setAttribute('width', parseInt($(foreCanvas).css('width')));
+			foreCanvas.setAttribute('height', parseInt($(foreCanvas).css('height')));
+
+			if (prevCanvasWidth != backCanvas.width || prevCanvasHeight != backCanvas.height) {
+		    	drawBackLine();
+		    	drawForeLine();
+			}
+		}
+
+		function drawBackLine() {
+			var canvas = document.getElementById("back_convas");
+			var context = canvas.getContext("2d");
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
+			var costmer = document.getElementById("costmer");
+			var costmerAddedWidth = costmer.width*252/671;
+
+			var width = canvas.width/2*widthRate;
+			var height = canvas.height/2 + canvas.height/2*heightRate;
+			var slope = width/height;
+
+			backLineRadius = Math.atan(width/height);
+
+			context.beginPath();
+			context.strokeStyle = '#d3d3d3';
+			context.lineWidth = 5;
+			context.moveTo(canvas.width/2 + canvas.height*slope, 0);
+			context.lineTo(canvas.width/2 + costmerAddedWidth, canvas.height);
+			context.stroke();
+			context.closePath();
+		}
+
+		function drawForeLine() {
+			if (foreLineAngle != undefined && backLineRadius != undefined) {
+				var canvas = document.getElementById("fore_convas");
+				var context = canvas.getContext("2d");
+				context.clearRect(0, 0, canvas.width, canvas.height);
+
+				if (foreLineAngle >= -90 && foreLineAngle <= 90) {
+					var costmer = document.getElementById("costmer");
+					var costmerAddedWidth = costmer.width*252/671;
+					var foreLineRadius = foreLineAngle*Math.PI/180;
+
+					var matchSeconds = 0;
+					if (Math.abs(backLineRadius - foreLineRadius) < 0.025) { // Match
+						foreLineRadius = backLineRadius;
+
+						if (matchStartDate == undefined || matchStartDate == null ) {
+							matchStartDate = new Date();
+						} else {
+							var endDate = new Date();
+							matchSeconds = (endDate.getTime() - matchStartDate.getTime()) / 1000;
+						}
+					} else {
+						matchStartDate = null;
+					}
+
+					context.beginPath();
+					context.strokeStyle = '#FBD633';
+					context.lineWidth = 5 + matchSeconds*3;
+					context.moveTo(canvas.width/2 + Math.tan(foreLineRadius)*canvas.height, 0);
+					context.lineTo(canvas.width/2 + costmerAddedWidth, canvas.height);
+					context.stroke();
+					context.closePath();
+
+					if (matchSeconds > 10) {
+						finishTask();
+					}
+				}
+			}
+		}
+
+		function finishTask() {
+			// TODO: send data and run the below code
+			gyro.stopTracking();
+
+			var canvas = document.getElementById("back_convas");
+			var context = canvas.getContext("2d");
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
+			var canvas = document.getElementById("fore_convas");
+			var context = canvas.getContext("2d");
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
+			$('body').css('background-color', '#FBD633');
+		}
+
+	</script>
+</body>
+</html>
