@@ -22,16 +22,12 @@
 
 	<script type="text/javascript">
 		var shakeThreshold = 10;
-
 		var game2_message = $('#game2_message');
-
 		var shake = 0;
 		var shakeQ = 0;
 		var totalShake = 0;
-
 		var timer = null;
 		var shaker = null;
-
 		$(function(){
 			setTimer();
 			shaker = new Shake({
@@ -39,21 +35,17 @@
 				timeout: 100
 		    }).start();
 			$(window).bind('shake', onShake);
-
 			var ball = document.getElementById("ball");;
 			prefixedEvent(ball, "AnimationEnd", onBallTransitionEnd);
-
 			/*** TODO: call moveBall when this game start ***/
 			setTimeout(moveBall, 3000);
 		});
-
 	    function onShake () {
 			shake++;
 			totalShake++;
 			game2_message.text("累積搖晃次數 " + totalShake);
 			if (shake>submitThreshold) submitShake();
 	    }
-
 		function submitShake(){
 			shakeQ += shake;
 			shake = 0;
@@ -62,25 +54,20 @@
 			clearTimeout(timer);
 			setTimer();
 		}
-
 		function setTimer(){
 			timer = setTimeout( function(){
 				submitShake();
 			}, 5000 );
 		}
-
 		/* Animation */
-
 		function moveBall(){
 			$('#ball').addClass('move');
 			$('#game2_message').text("開始捕捉！");
 		}
-
 		function onBallTransitionEnd() {
   			$('#game2_message').text("開始搖晃！");
   			$('#saso').hide();
 		}
-
 		var pfx = ["webkit", "moz", "MS", "o", ""];
 		function prefixedEvent(element, type, callback) {
 			for (var p = 0; p < pfx.length; p++) {
@@ -88,7 +75,6 @@
 				element.addEventListener(pfx[p]+type, callback, false);
 			}
 		}
-
 	</script>
 </body>
 </html>

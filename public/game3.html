@@ -26,15 +26,12 @@
 		var foreLineAngle;
 		var prevCanvasWidth = 0, prevCanvasHeight = 0;
 		var matchStartDate;
-
 		$(function () {
 			reDraw();
 		});
-
 		$(window).resize(function() {
 			reDraw();
 		});
-
 		gyro.frequency = 10;
 		gyro.startTracking(function(o) {
         	// o.x, o.y, o.z for accelerometer
@@ -45,7 +42,6 @@
         		} else {
         			foreLineAngle = -o.alpha;
         		}
-
 		    	drawForeLine();
         	} else {
         		$('#game3_message').show();
@@ -53,7 +49,6 @@
         		drawBackLine();
         	}
     	});
-
 		function reDraw() {
 			var backCanvas = document.getElementById("back_convas");
 			backCanvas.setAttribute('width', parseInt($(backCanvas).css('width')));
@@ -61,27 +56,21 @@
 			var foreCanvas = document.getElementById("fore_convas");
 			foreCanvas.setAttribute('width', parseInt($(foreCanvas).css('width')));
 			foreCanvas.setAttribute('height', parseInt($(foreCanvas).css('height')));
-
 			if (prevCanvasWidth != backCanvas.width || prevCanvasHeight != backCanvas.height) {
 		    	drawBackLine();
 		    	drawForeLine();
 			}
 		}
-
 		function drawBackLine() {
 			var canvas = document.getElementById("back_convas");
 			var context = canvas.getContext("2d");
 			context.clearRect(0, 0, canvas.width, canvas.height);
-
 			var costmer = document.getElementById("costmer");
 			var costmerAddedWidth = costmer.width*252/671;
-
 			var width = canvas.width/2*widthRate;
 			var height = canvas.height/2 + canvas.height/2*heightRate;
 			var slope = width/height;
-
 			backLineRadius = Math.atan(width/height);
-
 			/* Don't draw */
 			// context.beginPath();
 			// context.strokeStyle = '#d3d3d3';
@@ -91,23 +80,19 @@
 			// context.stroke();
 			// context.closePath();
 		}
-
 		function drawForeLine() {
 			if (foreLineAngle != undefined && backLineRadius != undefined) {
 				var canvas = document.getElementById("fore_convas");
 				var context = canvas.getContext("2d");
 				context.clearRect(0, 0, canvas.width, canvas.height);
-
 				if (foreLineAngle >= -90 && foreLineAngle <= 90) {
 					var costmer = document.getElementById("costmer");
 					var costmerAddedWidth = costmer.width*252/671;
 					var foreLineRadius = foreLineAngle*Math.PI/180;
-
 					var strokeColor = '#FBD633';
 					var matchSeconds = 0;
 					if (Math.abs(backLineRadius - foreLineRadius) < 0.01) { // Match
 						// foreLineRadius = backLineRadius;
-
 						if (matchStartDate == undefined || matchStartDate == null ) {
 							matchStartDate = new Date();
 						} else {
@@ -121,7 +106,6 @@
 						$('#game3_message').hide();
 						matchStartDate = null;
 					}
-
 					context.beginPath();
 					context.strokeStyle = strokeColor;
 					context.lineWidth = 5 + matchSeconds*3;
@@ -129,32 +113,25 @@
 					context.lineTo(canvas.width/2 + costmerAddedWidth, canvas.height);
 					context.stroke();
 					context.closePath();
-
 					if (matchSeconds > 10) {
 						finishTask();
 					}
 				}
 			}
 		}
-
 		function finishTask() {
 			// TODO: send data and run the below code
 			gyro.stopTracking();
-
 			var canvas = document.getElementById("back_convas");
 			var context = canvas.getContext("2d");
 			context.clearRect(0, 0, canvas.width, canvas.height);
-
 			var canvas = document.getElementById("fore_convas");
 			var context = canvas.getContext("2d");
 			context.clearRect(0, 0, canvas.width, canvas.height);
-
 			$('body').css('background-color', '#FBD633');
-
 			$('#game3_message').show();
 			$('#game3_message').html('傳輸幸福能量成功！');
 		}
-
 	</script>
 </body>
 </html>
