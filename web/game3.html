@@ -83,13 +83,14 @@
 
 			backLineRadius = Math.atan(width/height);
 
-			context.beginPath();
-			context.strokeStyle = '#d3d3d3';
-			context.lineWidth = 5;
-			context.moveTo(canvas.width/2 + canvas.height*slope, 0);
-			context.lineTo(canvas.width/2 + costmerAddedWidth, canvas.height);
-			context.stroke();
-			context.closePath();
+			/* Don't draw */
+			// context.beginPath();
+			// context.strokeStyle = '#d3d3d3';
+			// context.lineWidth = 5;
+			// context.moveTo(canvas.width/2 + canvas.height*slope, 0);
+			// context.lineTo(canvas.width/2 + costmerAddedWidth, canvas.height);
+			// context.stroke();
+			// context.closePath();
 		}
 
 		function drawForeLine() {
@@ -103,22 +104,24 @@
 					var costmerAddedWidth = costmer.width*252/671;
 					var foreLineRadius = foreLineAngle*Math.PI/180;
 
+					var strokeColor = '#FBD633';
 					var matchSeconds = 0;
-					if (Math.abs(backLineRadius - foreLineRadius) < 0.025) { // Match
-						foreLineRadius = backLineRadius;
+					if (Math.abs(backLineRadius - foreLineRadius) < 0.01) { // Match
+						// foreLineRadius = backLineRadius;
 
 						if (matchStartDate == undefined || matchStartDate == null ) {
 							matchStartDate = new Date();
 						} else {
 							var endDate = new Date();
 							matchSeconds = (endDate.getTime() - matchStartDate.getTime()) / 1000;
+							strokeColor = '#E63F00';
 						}
 					} else {
 						matchStartDate = null;
 					}
 
 					context.beginPath();
-					context.strokeStyle = '#FBD633';
+					context.strokeStyle = strokeColor;
 					context.lineWidth = 5 + matchSeconds*3;
 					context.moveTo(canvas.width/2 + Math.tan(foreLineRadius)*canvas.height, 0);
 					context.lineTo(canvas.width/2 + costmerAddedWidth, canvas.height);
