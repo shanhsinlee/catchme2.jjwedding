@@ -104,7 +104,7 @@ app.get('/game2', isAuthorized, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game2.html'))
 })
 app.get('/game3', isAuthorized, (req, res) => {
-  res.send("game3")
+  res.sendFile(path.join(__dirname + '/../public/game3.html'))
 })
 app.get('/overview', isAdmin, (req, res) => {
   res.send("overview")
