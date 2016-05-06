@@ -40,8 +40,6 @@
         	// o.x, o.y, o.z for accelerometer
         	// o.alpha, o.beta, o.gamma for gyro
         	if (o.alpha != undefined && o.alpha != null) {
-        		$('#game3_message').html('');
-
         		if (o.alpha >= 180) {
         			foreLineAngle = (360-o.alpha);
         		} else {
@@ -50,6 +48,7 @@
 
 		    	drawForeLine();
         	} else {
+        		$('#game3_message').show();
         		$('#game3_message').html('您的裝置不支援陀螺儀');
         		drawBackLine();
         	}
@@ -114,9 +113,12 @@
 						} else {
 							var endDate = new Date();
 							matchSeconds = (endDate.getTime() - matchStartDate.getTime()) / 1000;
-							strokeColor = '#E63F00';
+							strokeColor = '#FF5511';
 						}
+						$('#game3_message').show();
+						$('#game3_message').html('傳輸能量中 維持手機平衡！');
 					} else {
+						$('#game3_message').hide();
 						matchStartDate = null;
 					}
 
@@ -148,6 +150,9 @@
 			context.clearRect(0, 0, canvas.width, canvas.height);
 
 			$('body').css('background-color', '#FBD633');
+
+			$('#game3_message').show();
+			$('#game3_message').html('傳輸幸福能量成功！');
 		}
 
 	</script>

@@ -7,40 +7,23 @@
 	<title>抓寵囉</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
 	<script type="text/javascript" src="js/shake.js"></script>
 	<script type="text/javascript" src="js/util.js"></script>
 </head>
-<body>
-	<div id="background_game2" class="container fill text-center">
-		<img id="ball" src="img/ball.png">
-		<div id="saso_div" class="row">
-			<img id="saso" src="img/saso.png">
-		</div>
-		
-		<div id="donz_div" class="row">
-			<img id="donz" src="img/donz.png">
-		</div>
+<body class="background2">
+	<img id="saso" src="img/saso.png">
+	<img id="donz" src="img/donz.png">
+	<img id="ball" src="img/ball.png">
 
-		<div id="message_div" class="row">
-			<h3 id="score" class="text-center">發現野生愛打電動的崇懿！</h3>
-		</div>
-	</div>
+	<h3 id="game2_message">發現野生愛打電動的崇懿！</h3>
+
 	<script type="text/javascript">
 		var shakeThreshold = 10;
 
-		var score = $('#score');
+		var game2_message = $('#game2_message');
 
 		var shake = 0;
 		var shakeQ = 0;
@@ -67,7 +50,7 @@
 	    function onShake () {
 			shake++;
 			totalShake++;
-			score.text("搖晃次數 " + totalShake);
+			game2_message.text("累積搖晃次數 " + totalShake);
 			if (shake>submitThreshold) submitShake();
 	    }
 
@@ -90,11 +73,11 @@
 
 		function moveBall(){
 			$('#ball').addClass('move');
-			$('#score').text("開始捕捉！");
+			$('#game2_message').text("開始捕捉！");
 		}
 
 		function onBallTransitionEnd() {
-  			$('#score').text("開始搖晃！");
+  			$('#game2_message').text("開始搖晃！");
   			$('#saso').hide();
 		}
 

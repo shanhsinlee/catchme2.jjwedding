@@ -21,26 +21,6 @@ html, body {
   background-size: auto 100%;
 }
 
-.background2 {
-	background-image: url("../img/bg2.png");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: auto 100%;
-}
-
-.background3 {
-  min-height: 100%;
-  height: 100%;
-  min-width: 100%;
-  width: 100%;
-  background-image: url("../img/bg3.png");
-  background-position: center center;
-  background-size: auto 100%;
-  overflow: hidden;
-  position: absolute;
-  margin:0;
-}
-
 /* Login */
 
 #login_bg {
@@ -60,16 +40,6 @@ html, body {
   background-position: center center;
   background-size: auto 100%;
   margin: 0.5%;
-}
-
-/* Game 1 */
-
-.drum {
-	max-width: 90%;
-	max-height: 100%;
-	background-color: #FBE9E8;
-	margin: 1%;
-	padding: 1%;
 }
 
 a#game_btn1 {
@@ -96,43 +66,83 @@ a#game_btn3:hover {
   background-image: url(../img/button_game3h.png);
 }
 
+/* Game 1 */
+
+.background1 {
+  background-image: url("../img/bg1.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 100%;
+}
+
+.game_box {
+  height: 50%;
+  width: auto;
+  background-color: #FBE9E8;
+  text-align: center;
+  margin: 5%;
+}
+
+.drum {
+	max-width:90%;
+  max-height:75%;
+  margin: 1%;
+}
+
+#game1_score {
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+#game1_message {
+  color: #FF5511;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #FF5511;
+  background-color: white;
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  padding: 0.25%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moztransform: translate(-50%, -50%);
+  -mstransform: translate(-50%, -50%);
+  -otransform: translate(-50%, -50%);
+}
+
 /* Game 2 */
 
-#background_game2 {
-	background-color: #224802;
-	background-size: auto 100%;
+.background2 {
+  background-color: #224802;
+  background-size: auto 100%;
+}
+
+#game2_message {
+  position: fixed;
+  bottom: 0;
+  height: auto;
+  width: 100%;
+  margin: 0px;
+  padding: 3%;
+  text-align: center;
+  background-color: #E4F8A1;
 }
 
 #saso {
-	max-width: 60%;
-	max-height: 100%;
-	margin: 1%;
-	padding: 1%;
-	vertical-align: top;
+	position: fixed;
+  top: 0;
+  right: 0;
+  height: 45%;
 }
 
 #donz {
-	max-width: 60%;
-	max-height: 100%;
-	margin: 1%;
-	padding: 1%;
-}
-
-#saso_div {
-	height: 44%;
-	text-align:right;
-	vertical-align: top;
-}
-
-#donz_div {
-	height: 44%;
-	text-align:left;
-	vertical-align: bottom;
-}
-
-#message_div {
-	height: 12%;
-	background-color: #E4F8A1;
+	position: fixed;
+  bottom: 10%;
+  left: 0;
+  height: 45%;
 }
 
 #ball {
@@ -187,7 +197,7 @@ a#game_btn3:hover {
   100% {
     opacity: 1.0;
     top: 15%;
-    left: 80%;
+    left: 85%;
   }
 }
 
@@ -211,7 +221,7 @@ a#game_btn3:hover {
   100% {
     opacity: 1.0;
     top: 15%;
-    left: 80%;
+    left: 85%;
   }
 }
 
@@ -235,7 +245,7 @@ a#game_btn3:hover {
   100% {
     opacity: 1.0;
     top: 15%;
-    left: 80%;
+    left: 85%;
   }
 }
 
@@ -259,7 +269,7 @@ a#game_btn3:hover {
   100% {
     opacity: 1.0;
     top: 15%;
-    left: 80%;
+    left: 85%;
   }
 }
 
@@ -283,11 +293,24 @@ a#game_btn3:hover {
   100% {
     opacity: 1.0;
     top: 15%;
-    left: 80%;
+    left: 85%;
   }
 }
 
 /* Game 3 */
+
+.background3 {
+  min-height: 100%;
+  height: 100%;
+  min-width: 100%;
+  width: 100%;
+  background-image: url("../img/bg3.png");
+  background-position: center center;
+  background-size: auto 100%;
+  overflow: hidden;
+  position: absolute;
+  margin:0;
+}
 
 #costmer {
   position: fixed;
@@ -312,5 +335,19 @@ a#game_btn3:hover {
 }
 
 #game3_message {
+  color: #FF5511;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #FF5511;
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  padding: 0.25%;
   text-align: center;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moztransform: translate(-50%, -50%);
+  -mstransform: translate(-50%, -50%);
+  -otransform: translate(-50%, -50%);
 }
