@@ -25,38 +25,30 @@
 	<script type="text/javascript">
 		var isTouch = false;
 		var canTouch = true;
-
 		var countDownSeconds = 20;
-	
-		var hitThreashold = 10;
 
+		var hitThreashold = 10;
 		var hit = 0;
 		var hitQ = 0;
 		var totalHit = 0;
-
 		var timer = null;
-
 		$(function(){
 			var startTime = new Date();
 			var countdownTimer = setInterval(function(){
 				var endTime = new Date();
 				var seconds = Math.floor((endTime.getTime() - startTime.getTime()) / 1000);
-
 				if (seconds >= countDownSeconds) {
 					isTouch = true;
 					canTouch = false;
-
 					$('#game1_message').text('時間到！');
 				} else {
 					$('#game1_message').text('倒數計時 ' + (countDownSeconds - seconds));
 				}
 			}, 100);
-
 			isTouch = true;
 			onMouseUp();
 			setTimer();
 		});
-
 		function onMouseDown(){
 			if (!isTouch && canTouch) {
 				isTouch = true;
@@ -68,7 +60,6 @@
 				if (hit>hitThreashold) submitHit();
 			}
 		}
-
 		function onMouseUp(){
 			if (isTouch && canTouch) {
 				isTouch = false;
@@ -76,7 +67,6 @@
 				$('#drumDown').hide();
 			}
 		}
-
 		function submitHit(){
 			hitQ += hit;
 			hit = 0;
@@ -85,13 +75,11 @@
 			clearTimeout(timer);
 			setTimer();
 		}
-
 		function setTimer(){
 			timer = setTimeout( function(){
 				submitHit();
 			}, 5000);
 		}
-
 	</script>
 </body>
 </html>
