@@ -15,6 +15,8 @@ $ npm start
 
 $ open http://localhost:5566/
 
+$ npm run serve_statics # 只 serve html，方便開發 (嗎?)
+
 開發時使用:
 
 $ npm run dev # to start nodemon service to reload files
