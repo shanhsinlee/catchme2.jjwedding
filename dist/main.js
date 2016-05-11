@@ -136,6 +136,15 @@ app.get('/game2', isAuthorized, function (req, res) {
 app.get('/game3', isAuthorized, function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game3.html'));
 });
+app.get('/game1s', isAuthorized, function (req, res) {
+  res.sendFile(_path2.default.join(__dirname + '/../public/game1s.html'));
+});
+app.get('/game2s', isAuthorized, function (req, res) {
+  res.sendFile(_path2.default.join(__dirname + '/../public/game2s.html'));
+});
+app.get('/game3s', isAuthorized, function (req, res) {
+  res.sendFile(_path2.default.join(__dirname + '/../public/game3s.html'));
+});
 app.get('/overview', isAdmin, function (req, res) {
   res.send("overview");
 });
