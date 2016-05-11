@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>一起傳遞幸福能量吧！</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<script type="text/javascript" src="js/util.js"></script>
+</head>
+<body>
+	<div class="server-container3">
+		<img id="energy-ball" src="img/energy/energy0.png">
+		<br>
+		<img id="server-donz_saso" src="img/donz_saso.png">
+	</div>
+
+	<button class="start-button" type="button">S</button>
+
+	<script type="text/javascript">
+
+		$(function(){
+			/*** TODO: just test engery ball ***/
+			setTimeout(startAddEngery, 1000);
+
+			$('.start-button').click(function(){
+				$('.start-button').hide();
+				startAddEngery();
+			});
+		});
+
+		var count = 0;
+		function startAddEngery () {
+			if (count <= 4) {
+				$('#energy-ball').attr('src', 'img/energy/energy' + count + '.png');
+				count++;
+				setTimeout(startAddEngery, 1000);
+			} else {
+				$('.start-button').show();
+			}
+		}
+		
+	</script>
+</body>
+</html>
