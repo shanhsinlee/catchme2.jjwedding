@@ -5,7 +5,9 @@ This backend server is written in Node.js with Redis.
 node version v4.4.3
 
 ```
-第一次使用: p.s. 需要 node v4.4.3, 以及 redis
+第一次使用: p.s. 需要 node v4.4.3, 以及 redis, `npm --version` 至少要 3.x
+
+$ npm install -g npm # 如果版本是 2.x 的話
 
 $ cp config.yml.example config.yml
 
