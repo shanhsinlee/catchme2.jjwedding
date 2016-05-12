@@ -83,6 +83,11 @@ let isAdmin = (req, res, next) => {
   }
 }
 
+// 設定各個遊戲的開關
+redis.hmset("game_status", ["game1", "off", "game2", "off", "game3", "off"], (err, obj) => {
+  if (err) throw(err)
+})
+
 // assets
 app.use('/css', express.static(__dirname + '/../public/css'))
 app.use('/images', express.static(__dirname + '/../public/images'))
@@ -106,6 +111,8 @@ app.get('/game2', isAuthorized, (req, res) => {
 app.get('/game3', isAuthorized, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game3.html'))
 })
+
+// TODO generalize
 app.get('/game1s', isAuthorized, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game1s.html'))
 })
@@ -123,7 +130,14 @@ app.get('/overview', isAdmin, (req, res) => {
 app.post('/login', handlers.login)
 app.post('/user/:uid/submit', isUidValid, handlers.submit)
 app.get('/user/:uid/score', isUidValid, handlers.score)
+// TODO game3 api
 app.get('/user/:uid', handlers.user)
+
+// 開關遊戲 (是否接收遊戲 api 資料更新)
+app.post('/toggle/:game', handlers.gameswitch)
+// TODO game1 server api
+// TODO game2 server api
+// TODO game3 server api
 
 app.listen(PORT, () => {
   console.log(process.env.NODE_ENV)
