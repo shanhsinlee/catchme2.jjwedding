@@ -10,7 +10,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
-	<script type="text/javascript" src="js/util.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
 </head>
 <body>
 	<div class="rank-bg">
@@ -60,6 +60,7 @@
 				$('#server-game2-message').show();
 
 				moveBall();
+				pullingRank();
 			});
 		});
 
@@ -113,6 +114,22 @@
 				if (!pfx[p]) type = type.toLowerCase();
 				element.addEventListener(pfx[p]+type, callback, false);
 			}
+		}
+
+		var timer = null;
+		function pullingRank(){
+			timer = setTimeout( function(){
+				pullingFromServer('', writeBackRank);
+			}, sPullingThreshold );
+		}
+
+		function writeBackRank(json){
+			var ranks = $('.rank-list li');
+			$.each(json, function(index, item){
+				if (index>ranks.size()) return;
+				$(ranks.get(index)).text( item.name );
+			});
+			pullingRank();
 		}
 		
 	</script>
