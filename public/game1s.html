@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>大家一起洞次打次吧！</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<script type="text/javascript" src="js/util.js"></script>
+</head>
+<body>
+	<div class="rank-bg">
+		<ul class="rank-list">
+			<li>Scott Chou</li>
+			<li>Saso Joy</li>
+			<li>Jerry Huang</li>
+			<li>AAA</li>
+			<li>BBB</li>
+			<li>CCC</li>
+			<li>DDD</li>
+			<li>EEE</li>
+			<li>FFF</li>
+			<li>GGG</li>
+		</ul>
+	</div>
+	<div class="separator left"></div>
+
+	<div class="server-container">
+		<img id="server-drum" src="img/drum.gif">
+	</div>
+
+	<div class="progress-div right">
+		<img class="progress-bar" src="img/progress/progress0.png">
+	</div>
+	<div class="separator right"></div>
+
+	<button class="start-button" type="button">S</button>
+
+	<script type="text/javascript">
+
+		$(function(){
+			$('.server-container').hide();
+			$('.start-button').click(function(){
+				$('.start-button').hide();
+				$('.server-container').show();
+				startProgress();
+			});
+		});
+
+		var count = 0;
+		function startProgress () {
+			if (count <= 10) {
+				$('.progress-bar').attr('src', 'img/progress/progress' + count + '.png');
+				count++;
+				setTimeout(startProgress, 6000);
+			} else { // Game End
+				$('.start-button').show();
+			}
+		}
+		
+	</script>
+</body>
+</html>

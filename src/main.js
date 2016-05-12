@@ -106,6 +106,15 @@ app.get('/game2', isAuthorized, (req, res) => {
 app.get('/game3', isAuthorized, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game3.html'))
 })
+app.get('/game1s', isAuthorized, (req, res) => {
+  res.sendFile(path.join(__dirname + '/../public/game1s.html'))
+})
+app.get('/game2s', isAuthorized, (req, res) => {
+  res.sendFile(path.join(__dirname + '/../public/game2s.html'))
+})
+app.get('/game3s', isAuthorized, (req, res) => {
+  res.sendFile(path.join(__dirname + '/../public/game3s.html'))
+})
 app.get('/overview', isAdmin, (req, res) => {
   res.send("overview")
 })

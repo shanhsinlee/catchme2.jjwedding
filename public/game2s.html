@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>就決定是你了！</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<script type="text/javascript" src="js/util.js"></script>
+</head>
+<body>
+	<div class="rank-bg">
+		<ul class="rank-list">
+			<li>Scott Chou</li>
+			<li>Saso Joy</li>
+			<li>Jerry Huang</li>
+			<li>AAA</li>
+			<li>BBB</li>
+			<li>CCC</li>
+			<li>DDD</li>
+			<li>EEE</li>
+			<li>FFF</li>
+			<li>GGG</li>
+		</ul>
+	</div>
+	<div class="separator left"></div>
+
+	<div class="progress-div right">
+		<img class="progress-bar" src="img/progress/progress0.png">
+	</div>
+	<div class="separator right"></div>
+
+	<div class="server-container2">
+		<img id="server-saso" src="img/saso.png">
+		<img id="server-donz" src="img/donz.png">
+		<img id="server-ball" src="img/ball.png">
+
+		<div id="server-game2-message">發現野生愛打電動的崇懿！</div>
+	</div>
+
+	<button class="start-button" type="button">S</button>
+
+	<script type="text/javascript">
+		var gameCount = 0;
+
+		$(function(){
+			$('#server-game2-message').hide();
+			$('#server-ball').hide();
+			var ball = document.getElementById("server-ball");;
+			prefixedEvent(ball, "AnimationStart", onBallTransitionStart);
+			prefixedEvent(ball, "AnimationEnd", onBallTransitionEnd);
+
+			$('.start-button').click(function(){
+				$('.start-button').hide();
+				$('#server-ball').show();
+				$('#server-game2-message').show();
+
+				moveBall();
+			});
+		});
+
+		var count = 0;
+		var maxCount = 8;
+		function startProgress () {
+			if (count <= maxCount) {
+				$('.progress-bar').attr('src', 'img/progress/progress' + count + '.png');
+				count++;
+				setTimeout(startProgress, 3000);
+			};
+		}
+
+		/* Animation */
+		function moveBall(){
+			$('#server-ball').addClass('move');
+		}
+
+		function onBallTransitionStart () {
+			gameCount++;
+			$('#server-game2-message').text('開始捕捉！');
+			startProgress();
+
+			$('#server-saso').show();
+			setTimeout(function(){ 
+				$('#server-saso').hide();
+			}, 2000);
+		}
+
+		function onBallTransitionEnd() {
+			if (gameCount == 1) {
+				$('#server-game2-message').text('捕捉失敗！崇懿逃脫出來了！');
+
+				$('#server-ball').hide();
+				$('#server-saso').show();
+				$('#server-ball').removeClass('move');
+				setTimeout(function(){ 
+					count = 0;
+					maxCount = 10;
+					$('#server-ball').show();
+					$('#server-ball').addClass('move');
+				}, 3000);
+			} else if (gameCount > 1) {
+				$('.start-button').show();
+			}
+		}
+
+		var pfx = ["webkit", "moz", "MS", "o", ""];
+		function prefixedEvent(element, type, callback) {
+			for (var p = 0; p < pfx.length; p++) {
+				if (!pfx[p]) type = type.toLowerCase();
+				element.addEventListener(pfx[p]+type, callback, false);
+			}
+		}
+		
+	</script>
+</body>
+</html>
