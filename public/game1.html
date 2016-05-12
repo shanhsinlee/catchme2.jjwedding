@@ -37,7 +37,7 @@
 			var countdownTimer = setInterval(function(){
 				var endTime = new Date();
 				var seconds = Math.floor((endTime.getTime() - startTime.getTime()) / 1000);
-				if (seconds >= countDownSeconds) {
+				if (seconds >= countDownSeconds ) {
 					isTouch = true;
 					canTouch = false;
 					submitHit();
@@ -70,11 +70,15 @@
 			}
 		}
 		function submitHit(){
-			hitQ += hit;
-			hit = 0;
-			if (success) hitQ = 0;
-			clearTimeout(timer);
-			setTimer();
+			if (canTouch) {
+				hitQ += hit;
+				hit = 0;
+				var success = submitToServer('hit', hitQ);
+				if (success) hitQ = 0;
+				clearTimeout(timer);
+				setTimer();
+			}
+			
 		}
 		function setTimer(){
 			timer = setTimeout( function(){
