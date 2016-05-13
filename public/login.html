@@ -45,18 +45,21 @@
 		function login(){
 			var post_url = 'login';
 
-			var name = $('#captcha').val();
-			var captcha = $('#name').val();
+			var name = $('#name').val();
+			var captcha = $('#captcha').val();
 
 			var success = false;
 
 			$.post( post_url, { name: name, captcha: captcha }, function(msg){
-				var json = $.parseJSON(msg);
+				//var json = $.parseJSON(msg);
+				var json = msg;
 				deleteCookie('uid');
 				deleteCookie('uname');
 				setCookie('uid', json.uid);
 				setCookie('uname', json.name);
-				$('#login_form').submit();
+				window.location = "./list";
+				//$('#login_form').submit();
+
 			} );
 				
 			return success;
