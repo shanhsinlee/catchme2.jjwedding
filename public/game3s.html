@@ -10,9 +10,25 @@
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
-	<script type="text/javascript" src="js/util.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
 </head>
 <body>
+	<div class="rank-bg">
+		<ul class="rank-list">
+			<li>Scott Chou</li>
+			<li>Saso Joy</li>
+			<li>Jerry Huang</li>
+			<li>AAA</li>
+			<li>BBB</li>
+			<li>CCC</li>
+			<li>DDD</li>
+			<li>EEE</li>
+			<li>FFF</li>
+			<li>GGG</li>
+		</ul>
+	</div>
+	<div class="separator left"></div>
+
 	<div class="server-container3">
 		<img id="energy-ball" src="img/energy/energy0.png">
 		<br>
@@ -30,6 +46,7 @@
 			$('.start-button').click(function(){
 				$('.start-button').hide();
 				startAddEngery();
+				pullingRank();
 			});
 		});
 
@@ -44,6 +61,21 @@
 			}
 		}
 		
+		var timer = null;
+		function pullingRank(){
+			timer = setTimeout( function(){
+				pullingFromServer('', writeBackRank);
+			}, sPullingThreshold );
+		}
+
+		function writeBackRank(json){
+			var ranks = $('.rank-list li');
+			$.each(json, function(index, item){
+				if (index>ranks.size()) return;
+				$(ranks.get(index)).text( item.name );
+			});
+			pullingRank();
+		}
 	</script>
 </body>
 </html>

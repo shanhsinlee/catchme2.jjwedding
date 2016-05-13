@@ -15,7 +15,7 @@
 </head>
 <body class="background2">
 	<img id="saso" src="img/saso.png">
-	<img id="donz" src="img/donz.png">
+	<img id="donz" src="img/donz.png" onclick="onShake();">
 	<img id="ball" src="img/ball.png">
 
 	<h3 id="game2_message">發現野生愛打電動的崇懿！</h3>
@@ -28,6 +28,7 @@
 		var totalShake = 0;
 		var timer = null;
 		var shaker = null;
+		var isStart = false;
 		$(function(){
 			setTimer();
 			shaker = new Shake({
@@ -41,18 +42,23 @@
 			setTimeout(moveBall, 3000);
 		});
 	    function onShake () {
-			shake++;
-			totalShake++;
-			game2_message.text("累積搖晃次數 " + totalShake);
-			if (shake>submitThreshold) submitShake();
+	    	if (isStart) {
+	    		shake++;
+				totalShake++;
+				game2_message.text("累積搖晃次數 " + totalShake);
+				if (shake>shakeThreshold) submitShake();
+	    	}
 	    }
 		function submitShake(){
-			shakeQ += shake;
-			shake = 0;
-			var success = openUrl('shake', shakeQ);
-			if (success) shakeQ = 0;
-			clearTimeout(timer);
-			setTimer();
+			if (isStart) {
+				shakeQ += shake;
+				shake = 0;
+				var success = submitToServer('shake', shakeQ);
+				if (success) shakeQ = 0;
+				clearTimeout(timer);
+				setTimer();
+			}
+			
 		}
 		function setTimer(){
 			timer = setTimeout( function(){
@@ -67,6 +73,7 @@
 		function onBallTransitionEnd() {
   			$('#game2_message').text("開始搖晃！");
   			$('#saso').hide();
+  			isStart = true;
 		}
 		var pfx = ["webkit", "moz", "MS", "o", ""];
 		function prefixedEvent(element, type, callback) {
@@ -78,3 +85,4 @@
 	</script>
 </body>
 </html>
+

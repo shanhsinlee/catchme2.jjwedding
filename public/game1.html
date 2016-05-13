@@ -37,9 +37,11 @@
 			var countdownTimer = setInterval(function(){
 				var endTime = new Date();
 				var seconds = Math.floor((endTime.getTime() - startTime.getTime()) / 1000);
-				if (seconds >= countDownSeconds) {
+				if (seconds >= countDownSeconds ) {
 					isTouch = true;
 					canTouch = false;
+					submitHit();
+					clearInterval(countdownTimer);
 					$('#game1_message').text('時間到！');
 				} else {
 					$('#game1_message').text('倒數計時 ' + (countDownSeconds - seconds));
@@ -68,12 +70,15 @@
 			}
 		}
 		function submitHit(){
-			hitQ += hit;
-			hit = 0;
-			var success = openUrl('hit', hitQ);
-			if (success) hitQ = 0;
-			clearTimeout(timer);
-			setTimer();
+			if (canTouch) {
+				hitQ += hit;
+				hit = 0;
+				var success = submitToServer('hit', hitQ);
+				if (success) hitQ = 0;
+				clearTimeout(timer);
+				setTimer();
+			}
+			
 		}
 		function setTimer(){
 			timer = setTimeout( function(){

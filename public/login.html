@@ -16,28 +16,56 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/util.js"></script>
 </head>
 <body>
 	<div id="login_bg" class="container">
 		<div class="row text-center fill vertical-center">
 			<div class="col-md-4 col-xs-2"></div>
 			<div class="col-md-4 col-xs-8">
-				<form role="form">
+				<form role="form" action="list.html" method="post" id="login_form">
 					<div class="form-group">
 						<h4>輸入桌上驗證碼：</h4>
-						<input class="form-control" type="text" />
+						<input class="form-control" type="text" name="captcha" id="captcha" />
 					</div>
 					<div class="form-group">
 						<h4>取個暱稱吧：</h4>
-						<input class="form-control" type="text" />
+						<input class="form-control" type="text" name="name" id="name" />
 					</div>
 					<div class="form-group">
-						<input class="form-control btn btn-success" type="submit" value="確定" />
+						<input class="form-control btn btn-success" type="submit" value="確定" onclick="return login();" />
 					</div>
 					<br><br><br>
 				</form>
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		function login(){
+			var post_url = 'login';
+
+			var name = $('#name').val();
+			var captcha = $('#captcha').val();
+
+			var success = false;
+
+			$.post( post_url, { name: name, captcha: captcha }, function(msg){
+				//var json = $.parseJSON(msg);
+				var json = msg;
+				deleteCookie('uid');
+				deleteCookie('uname');
+				setCookie('uid', json.uid);
+				setCookie('uname', json.name);
+				window.location = "./list";
+				//$('#login_form').submit();
+
+			} );
+				
+			return success;
+		}
+
+	</script>
+
 </body>
 </html>

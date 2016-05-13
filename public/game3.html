@@ -121,16 +121,27 @@
 		}
 		function finishTask() {
 			// TODO: send data and run the below code
-			gyro.stopTracking();
-			var canvas = document.getElementById("back_convas");
-			var context = canvas.getContext("2d");
-			context.clearRect(0, 0, canvas.width, canvas.height);
-			var canvas = document.getElementById("fore_convas");
-			var context = canvas.getContext("2d");
-			context.clearRect(0, 0, canvas.width, canvas.height);
-			$('body').css('background-color', '#FBD633');
-			$('#game3_message').show();
-			$('#game3_message').html('傳輸幸福能量成功！');
+			var success = submitEnergy();
+			if (success) {
+				gyro.stopTracking();
+				var canvas = document.getElementById("back_convas");
+				var context = canvas.getContext("2d");
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				var canvas = document.getElementById("fore_convas");
+				var context = canvas.getContext("2d");
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				$('body').css('background-color', '#FBD633');
+				$('#game3_message').show();
+				$('#game3_message').html('傳輸幸福能量成功！');
+			} else {
+				$('#game3_message').show();
+				$('#game3_message').html('幸福能量傳送中...');
+			}
+			
+		}
+
+		function submitEnergy(){
+			return submitToServer('energy', 0);
 		}
 	</script>
 </body>
