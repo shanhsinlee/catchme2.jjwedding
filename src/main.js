@@ -130,7 +130,6 @@ app.get('/overview', isAdmin, (req, res) => {
 app.post('/login', handlers.login)
 app.post('/user/:uid/submit', isUidValid, handlers.submit)
 app.get('/user/:uid/score', isUidValid, handlers.score)
-// TODO game3 api
 app.get('/user/:uid', handlers.user)
 
 // 開關遊戲 (是否接收遊戲 api 資料更新)
