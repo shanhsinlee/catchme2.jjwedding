@@ -7,7 +7,7 @@ module.exports = (req, res) => {
   let userData = null
 
   // check game switch
-  let checkGameSwitch = new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
     redis.hgetall("game_status", (err, gameStatus) => {
       if (err) {
         reject("查詢遊戲開關錯誤")
@@ -52,11 +52,7 @@ module.exports = (req, res) => {
       }
     })
   })
-  .catch((reason) => {
-    res.status(400).json({ msg: reason })
-  })
-
-  checkGameSwitch.then(() => {
+  .then((success) => {
     // 查詢使用者遊戲分數
     return new Promise((resolve, reject) => {
       redis.hgetall(`user:${req.params.uid}`, (err, result) => {
