@@ -103,9 +103,9 @@ module.exports = (req, res) => {
     })
   })
   .then((score) => {
-    let returnValue = { name: userData.name }
-    returnValue[updateKey] = score
-    return res.status(200).json(returnValue)
+    let jsonData = { name: userData.name }
+    jsonData[updateKey] = score
+    return res.status(200).json(jsonData)
   })
   .catch((reason) => {
     res.status(400).json({ msg: reason })

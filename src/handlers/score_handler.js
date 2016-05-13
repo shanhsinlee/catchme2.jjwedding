@@ -10,6 +10,9 @@ module.exports = (req, res) => {
   else if (action === "shake") {
     updateKey = "shake"
   }
+  else if (action === "energy") {
+    updateKey = "energy"
+  }
   else {
     // invalid action
     return res.status(400).json({ msg: "失敗 (未提供 action params)" })
