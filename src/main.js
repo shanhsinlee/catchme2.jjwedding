@@ -112,18 +112,15 @@ app.get('/game3', isAuthorized, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game3.html'))
 })
 
-// TODO generalize
-app.get('/game1s', isAuthorized, (req, res) => {
+// server pages
+app.get('/game1s', isAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game1s.html'))
 })
-app.get('/game2s', isAuthorized, (req, res) => {
+app.get('/game2s', isAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game2s.html'))
 })
-app.get('/game3s', isAuthorized, (req, res) => {
+app.get('/game3s', isAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game3s.html'))
-})
-app.get('/overview', isAdmin, (req, res) => {
-  res.send("overview")
 })
 
 // api routes
@@ -134,9 +131,8 @@ app.get('/user/:uid', handlers.user)
 
 // 開關遊戲 (是否接收遊戲 api 資料更新)
 app.post('/toggle/:game', handlers.gameswitch)
-// TODO game1 server api
-// TODO game2 server api
-// TODO game3 server api
+// 查詢各遊戲 rank
+app.get('/rank/:game', handlers.rank)
 
 app.listen(PORT, () => {
   console.log(process.env.NODE_ENV)
