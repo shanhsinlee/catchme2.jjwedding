@@ -1,6 +1,24 @@
 import redis from '../utils/database.js'
 import models from '../utils/models.js'
 
+// TODO sort rank
+let game1result = (res) => {
+  models.fetchAllUserData().then((result) => {
+    return res.status(200).json({ user_data: result })
+  }).catch((reason) => {
+    return res.status(400).json({ msg: reason })
+  })
+}
+
+// TODO sort rank
+let game2result = (res) => {
+  models.fetchAllUserData().then((result) => {
+    return res.status(200).json({ user_data: result })
+  }).catch((reason) => {
+    return res.status(400).json({ msg: reason })
+  })
+}
+
 let game3result = (res) => {
   new Promise((resolve, reject) => {
     models.fetchGame3Result((err, result) => {
@@ -27,12 +45,10 @@ let game3result = (res) => {
 module.exports = (req, res) => {
   switch(req.params.game) {
     case "game1":
-      // TODO
-      return res.status(200).json({ msg: "OK" })
+      game1result(res)
       break
     case "game2":
-      // TODO
-      return res.status(200).json({ msg: "OK" })
+      game2result(res)
       break
     case "game3":
       game3result(res)
