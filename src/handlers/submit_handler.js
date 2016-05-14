@@ -83,9 +83,7 @@ module.exports = (req, res) => {
         case "energy":
           // 遊戲三只要將名單記到某個 list 就行，並將 user 的 energy 資料改成 "0"
           scoreToWrite = 0
-          // TODO 將順序寫到 list 裡
           models.writeGame3Result({ name: userData.name, uid: req.params.uid})
-
           break
         default:
           break

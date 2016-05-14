@@ -57,7 +57,7 @@ let isUidValid = (req, res, next) => {
   })
 }
 
-// TODO user check name
+// TODO if no uid or user name, should redirect to index page
 let isAuthorized = (req, res, next) => {
   if (true) {
     return next()
@@ -99,7 +99,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/login.html'))
 })
 app.get('/list', isAuthorized, (req, res) => {
-  // TODO if no name, redirect to index page
   res.sendFile(path.join(__dirname + '/../public/list.html'))
 })
 app.get('/game1', isAuthorized, (req, res) => {
