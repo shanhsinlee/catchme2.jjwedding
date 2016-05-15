@@ -41,6 +41,10 @@ class models {
             reject(err)
           }
           else {
+            result = result.map((item, index) => {
+              item['uid'] = keys[index].split(":")[1] // format = user:asdfsafasf131
+              return item
+            })
             resolve(result)
           }
         })

@@ -1,19 +1,39 @@
 import redis from '../utils/database.js'
 import models from '../utils/models.js'
 
-// TODO sort rank
 let game1result = (res) => {
-  models.fetchAllUserData().then((result) => {
-    return res.status(200).json({ user_data: result })
+  models.fetchAllUserData().then((userData) => {
+    let rank = userData.sort((a, b) => {
+      return (+a.hit < +b.hit)
+    })
+    rank = rank.map((user) => {
+      let value = {
+        name: user.name,
+        score: user.hit,
+        uid: user.uid
+      }
+      return value
+    })
+    return res.status(200).json(rank)
   }).catch((reason) => {
     return res.status(400).json({ msg: reason })
   })
 }
 
-// TODO sort rank
 let game2result = (res) => {
-  models.fetchAllUserData().then((result) => {
-    return res.status(200).json({ user_data: result })
+  models.fetchAllUserData().then((userData) => {
+    let rank = userData.sort((a, b) => {
+      return (+a.shake < +b.shake)
+    })
+    rank = rank.map((user) => {
+      let value = {
+        name: user.name,
+        score: user.shake,
+        uid: user.uid
+      }
+      return value
+    })
+    return res.status(200).json(rank)
   }).catch((reason) => {
     return res.status(400).json({ msg: reason })
   })
