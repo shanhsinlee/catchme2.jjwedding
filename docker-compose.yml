@@ -25,13 +25,14 @@ services:
     # expose:
     #   - "7372"
 
-  #
-  # nginx:
-  #   build: docker/nginx
-  #   # volumes:
-  #   #   - ./public:/app/public
-  #   #   - ./tmp:/app/tmp
-  #   ports:
-  #     - "80:80"
-  #   # links:
-  #   #   - express
+
+  nginx:
+    build: docker/nginx
+    volumes:
+    #   - ./public:/app/public
+    #   - ./tmp:/app/tmp
+      - .:/app
+    ports:
+      - "80:80"
+    links:
+      - express
