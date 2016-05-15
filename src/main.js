@@ -57,7 +57,7 @@ let isUidValid = (req, res, next) => {
   })
 }
 
-// TODO user check name
+// TODO if no uid or user name, should redirect to index page
 let isAuthorized = (req, res, next) => {
   if (true) {
     return next()
@@ -83,9 +83,15 @@ let isAdmin = (req, res, next) => {
   }
 }
 
-// 設定各個遊戲的開關
-redis.hmset("game_status", ["game1", "off", "game2", "off", "game3", "off"], (err, obj) => {
-  if (err) throw(err)
+// 設定各個遊戲的開關 (有資料的話就不重設了)
+redis.exists("game_status", (err, isKeyExisted) => {
+  if (!isKeyExisted) {
+    console.log("game_status does not exist, create one.")
+    redis.hmset("game_status", ["game1", "off", "game2", "off", "game3", "off"], (err, obj) => {
+      if (err) throw(err)
+    })
+  }
+  console.log("game_status exists, skip.")
 })
 
 // assets
@@ -99,7 +105,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/login.html'))
 })
 app.get('/list', isAuthorized, (req, res) => {
-  // TODO if no name, redirect to index page
   res.sendFile(path.join(__dirname + '/../public/list.html'))
 })
 app.get('/game1', isAuthorized, (req, res) => {
@@ -112,18 +117,15 @@ app.get('/game3', isAuthorized, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game3.html'))
 })
 
-// TODO generalize
-app.get('/game1s', isAuthorized, (req, res) => {
+// server pages
+app.get('/game1s', isAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game1s.html'))
 })
-app.get('/game2s', isAuthorized, (req, res) => {
+app.get('/game2s', isAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game2s.html'))
 })
-app.get('/game3s', isAuthorized, (req, res) => {
+app.get('/game3s', isAdmin, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game3s.html'))
-})
-app.get('/overview', isAdmin, (req, res) => {
-  res.send("overview")
 })
 
 // api routes
@@ -134,9 +136,8 @@ app.get('/user/:uid', handlers.user)
 
 // 開關遊戲 (是否接收遊戲 api 資料更新)
 app.post('/toggle/:game', handlers.gameswitch)
-// TODO game1 server api
-// TODO game2 server api
-// TODO game3 server api
+// 查詢各遊戲 rank
+app.get('/rank/:game', handlers.rank)
 
 app.listen(PORT, () => {
   console.log(process.env.NODE_ENV)

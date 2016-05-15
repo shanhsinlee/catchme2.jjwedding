@@ -36,10 +36,10 @@ $ npm start
 
 TODO:
 
-API WIP.
+1. 邀請碼
 
-captcha script
+2. 在進入遊戲與遊戲清單頁面時，前端要送 client user name or uid，以判斷是否讓他進入，否則讓他轉回 login 頁
 
-benchmark script
+3. 有時間的話作個 benchmark
 
-server where?
+4. server 放哪？

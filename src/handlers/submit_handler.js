@@ -1,4 +1,5 @@
 import redis from '../utils/database.js'
+import models from '../utils/models.js'
 
 module.exports = (req, res) => {
   let action = req.body.action
@@ -82,7 +83,7 @@ module.exports = (req, res) => {
         case "energy":
           // 遊戲三只要將名單記到某個 list 就行，並將 user 的 energy 資料改成 "0"
           scoreToWrite = 0
-          // TODO 將順序寫到 list 裡
+          models.writeGame3Result({ name: userData.name, uid: req.params.uid})
           break
         default:
           break
@@ -104,6 +105,6 @@ module.exports = (req, res) => {
     return res.status(200).json(jsonData)
   })
   .catch((reason) => {
-    res.status(400).json({ msg: reason })
+    return res.status(400).json({ msg: reason })
   })
 }
