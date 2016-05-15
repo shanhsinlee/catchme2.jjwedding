@@ -91,7 +91,7 @@ var isUidValid = function isUidValid(req, res, next) {
   });
 };
 
-// TODO user check name
+// TODO if no uid or user name, should redirect to index page
 var isAuthorized = function isAuthorized(req, res, next) {
   if (true) {
     return next();
@@ -113,6 +113,17 @@ var isAdmin = function isAdmin(req, res, next) {
   }
 };
 
+// 設定各個遊戲的開關 (有資料的話就不重設了)
+_database2.default.exists("game_status", function (err, isKeyExisted) {
+  if (!isKeyExisted) {
+    console.log("game_status does not exist, create one.");
+    _database2.default.hmset("game_status", ["game1", "off", "game2", "off", "game3", "off"], function (err, obj) {
+      if (err) throw err;
+    });
+  }
+  console.log("game_status exists, skip.");
+});
+
 // assets
 app.use('/css', _express2.default.static(__dirname + '/../public/css'));
 app.use('/images', _express2.default.static(__dirname + '/../public/images'));
@@ -124,7 +135,6 @@ app.get('/', function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/login.html'));
 });
 app.get('/list', isAuthorized, function (req, res) {
-  // TODO if no name, redirect to index page
   res.sendFile(_path2.default.join(__dirname + '/../public/list.html'));
 });
 app.get('/game1', isAuthorized, function (req, res) {
@@ -136,17 +146,16 @@ app.get('/game2', isAuthorized, function (req, res) {
 app.get('/game3', isAuthorized, function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game3.html'));
 });
-app.get('/game1s', isAuthorized, function (req, res) {
+
+// server pages
+app.get('/game1s', isAdmin, function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game1s.html'));
 });
-app.get('/game2s', isAuthorized, function (req, res) {
+app.get('/game2s', isAdmin, function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game2s.html'));
 });
-app.get('/game3s', isAuthorized, function (req, res) {
+app.get('/game3s', isAdmin, function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game3s.html'));
-});
-app.get('/overview', isAdmin, function (req, res) {
-  res.send("overview");
 });
 
 // api routes
@@ -154,6 +163,11 @@ app.post('/login', _handlers2.default.login);
 app.post('/user/:uid/submit', isUidValid, _handlers2.default.submit);
 app.get('/user/:uid/score', isUidValid, _handlers2.default.score);
 app.get('/user/:uid', _handlers2.default.user);
+
+// 開關遊戲 (是否接收遊戲 api 資料更新)
+app.post('/toggle/:game', _handlers2.default.gameswitch);
+// 查詢各遊戲 rank
+app.get('/rank/:game', _handlers2.default.rank);
 
 app.listen(PORT, function () {
   console.log(process.env.NODE_ENV);
