@@ -3,17 +3,9 @@ import uuid from 'node-uuid'
 
 module.exports = (req, res) => {
   let name = req.body.name
-  let captcha = req.body.captcha
-  let isValid = true
 
-  // TODO check captcha valid
-  let isValidCaptcha = (c) => {
-    return true
-  }
-
-  if (!name || !captcha || !isValidCaptcha(captcha)) {
-    isValid = false
-    return res.status(400).json({ msg: "未提供參數或驗證碼輸入錯誤" })
+  if (!name) {
+    return res.status(400).json({ msg: "未提供名字!" })
   }
 
   let uid = uuid.v4().split('-').join('')

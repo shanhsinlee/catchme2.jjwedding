@@ -12,17 +12,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 module.exports = function (req, res) {
   var name = req.body.name;
-  var captcha = req.body.captcha;
-  var isValid = true;
 
-  // TODO check captcha valid
-  var isValidCaptcha = function isValidCaptcha(c) {
-    return true;
-  };
-
-  if (!name || !captcha || !isValidCaptcha(captcha)) {
-    isValid = false;
-    return res.status(400).json({ msg: "未提供參數或驗證碼輸入錯誤" });
+  if (!name) {
+    return res.status(400).json({ msg: "未提供名字!" });
   }
 
   var uid = _nodeUuid2.default.v4().split('-').join('');
