@@ -83,9 +83,15 @@ let isAdmin = (req, res, next) => {
   }
 }
 
-// 設定各個遊戲的開關
-redis.hmset("game_status", ["game1", "off", "game2", "off", "game3", "off"], (err, obj) => {
-  if (err) throw(err)
+// 設定各個遊戲的開關 (有資料的話就不重設了)
+redis.exists("game_status", (err, isKeyExisted) => {
+  if (!isKeyExisted) {
+    console.log("game_status does not exist, create one.")
+    redis.hmset("game_status", ["game1", "off", "game2", "off", "game3", "off"], (err, obj) => {
+      if (err) throw(err)
+    })
+  }
+  console.log("game_status exists, skip.")
 })
 
 // assets
