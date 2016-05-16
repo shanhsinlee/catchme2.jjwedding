@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
 	<script type="text/javascript" src="js/gyro.min.js"></script>
-	<!-- <script type="text/javascript" src="js/util.js"></script> -->
+	<script type="text/javascript" src="js/util.js"></script>
 </head>
 <body class="background3">
 	<canvas id="back_convas" class="costmer_canvas"></canvas>
@@ -26,29 +26,38 @@
 		var foreLineAngle;
 		var prevCanvasWidth = 0, prevCanvasHeight = 0;
 		var matchStartDate;
+
 		$(function () {
-			reDraw();
+			// TODO: check when this game start and then call startGame 
+			startGame();
 		});
+
+		function startGame() {
+			gyro.frequency = 10;
+			gyro.startTracking(function(o) {
+	        	// o.x, o.y, o.z for accelerometer
+	        	// o.alpha, o.beta, o.gamma for gyro
+	        	if (o.alpha != undefined && o.alpha != null) {
+	        		if (o.alpha >= 180) {
+	        			foreLineAngle = (360-o.alpha);
+	        		} else {
+	        			foreLineAngle = -o.alpha;
+	        		}
+			    	drawForeLine();
+	        	} else {
+	        		$('#game3_message').show();
+	        		$('#game3_message').html('您的裝置不支援陀螺儀');
+	        		drawBackLine();
+	        	}
+	    	});
+
+	    	reDraw();
+		}
+
 		$(window).resize(function() {
 			reDraw();
 		});
-		gyro.frequency = 10;
-		gyro.startTracking(function(o) {
-        	// o.x, o.y, o.z for accelerometer
-        	// o.alpha, o.beta, o.gamma for gyro
-        	if (o.alpha != undefined && o.alpha != null) {
-        		if (o.alpha >= 180) {
-        			foreLineAngle = (360-o.alpha);
-        		} else {
-        			foreLineAngle = -o.alpha;
-        		}
-		    	drawForeLine();
-        	} else {
-        		$('#game3_message').show();
-        		$('#game3_message').html('您的裝置不支援陀螺儀');
-        		drawBackLine();
-        	}
-    	});
+
 		function reDraw() {
 			var backCanvas = document.getElementById("back_convas");
 			backCanvas.setAttribute('width', parseInt($(backCanvas).css('width')));
@@ -120,17 +129,18 @@
 			}
 		}
 		function finishTask() {
+			gyro.stopTracking();
+			var canvas = document.getElementById("back_convas");
+			var context = canvas.getContext("2d");
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			var canvas = document.getElementById("fore_convas");
+			var context = canvas.getContext("2d");
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			$('body').css('background-color', '#FBD633');
+
 			// TODO: send data and run the below code
 			var success = submitEnergy();
 			if (success) {
-				gyro.stopTracking();
-				var canvas = document.getElementById("back_convas");
-				var context = canvas.getContext("2d");
-				context.clearRect(0, 0, canvas.width, canvas.height);
-				var canvas = document.getElementById("fore_convas");
-				var context = canvas.getContext("2d");
-				context.clearRect(0, 0, canvas.width, canvas.height);
-				$('body').css('background-color', '#FBD633');
 				$('#game3_message').show();
 				$('#game3_message').html('傳輸幸福能量成功！');
 			} else {

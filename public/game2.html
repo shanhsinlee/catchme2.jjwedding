@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<title>就決定是你了！</title>
+	<title>收服崇懿大作戰！</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 
@@ -36,11 +36,18 @@
 				timeout: 100
 		    }).start();
 			$(window).bind('shake', onShake);
-			var ball = document.getElementById("ball");;
+			
+			var ball = document.getElementById("ball");
 			prefixedEvent(ball, "AnimationEnd", onBallTransitionEnd);
-			/*** TODO: call moveBall when this game start ***/
-			setTimeout(moveBall, 3000);
+
+			// TODO: check when this game start and then call startGame 
+			startGame();
 		});
+
+		function startGame() {
+			moveBall();
+		}
+
 	    function onShake () {
 	    	if (isStart) {
 	    		shake++;

@@ -55,9 +55,11 @@
 		function startProgress () {
 			if (count <= 10) {
 				$('.progress-bar').attr('src', 'img/progress/progress' + count + '.png');
+				$('#server-drum').attr('src', 'img/drum.gif');
 				count++;
 				setTimeout(startProgress, 6000);
 			} else { // Game End
+				$('#server-drum').attr('src', 'img/drum_up.png');
 				$('.start-button').show();
 			}
 		}

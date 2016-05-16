@@ -56,8 +56,10 @@
 				$('#energy-ball').attr('src', 'img/energy/energy' + count + '.png');
 				count++;
 				setTimeout(startAddEngery, 1000);
+				$('body').removeClass('background3s');
 			} else {
 				$('.start-button').show();
+				$('body').addClass('background3s');
 			}
 		}
 		
