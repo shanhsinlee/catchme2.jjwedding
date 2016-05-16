@@ -36,11 +36,18 @@
 				timeout: 100
 		    }).start();
 			$(window).bind('shake', onShake);
-			var ball = document.getElementById("ball");;
+			
+			var ball = document.getElementById("ball");
 			prefixedEvent(ball, "AnimationEnd", onBallTransitionEnd);
-			/*** TODO: call moveBall when this game start ***/
-			setTimeout(moveBall, 3000);
+
+			// TODO: check when this game start and then call startGame 
+			startGame();
 		});
+
+		function startGame() {
+			moveBall();
+		}
+
 	    function onShake () {
 	    	if (isStart) {
 	    		shake++;

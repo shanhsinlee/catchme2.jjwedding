@@ -17,7 +17,7 @@
 		<img id="drumDown" class="drum" src="img/drum_down.png" onmousedown="onMouseDown();" onmouseup="onMouseUp();" ontouchstart="onMouseDown();" ontouchend="onMouseUp();">
 		<img id="drumUp" class="drum" src="img/drum_up.png" onmousedown="onMouseDown();" onmouseup="onMouseUp();" ontouchstart="onMouseDown();" ontouchend="onMouseUp();">
 
-		<h2 id="game1_score">開始打擊！</h2>
+		<h2 id="game1_score"></h2>
 	</div>
 
 	<h2 id="game1_message"></h2>
@@ -33,6 +33,18 @@
 		var totalHit = 0;
 		var timer = null;
 		$(function(){
+			isTouch = true;
+			onMouseUp();
+
+			// TODO: check when this game start and then call startGame 
+			startGame();
+		});
+
+		function startGame() {
+			setTimer();
+
+			$('game1_score').text('開始打擊！');
+
 			var startTime = new Date();
 			var countdownTimer = setInterval(function(){
 				var endTime = new Date();
@@ -47,10 +59,8 @@
 					$('#game1_message').text('倒數計時 ' + (countDownSeconds - seconds));
 				}
 			}, 100);
-			isTouch = true;
-			onMouseUp();
-			setTimer();
-		});
+		}
+
 		function onMouseDown(){
 			if (!isTouch && canTouch) {
 				isTouch = true;

@@ -46,24 +46,12 @@ a#game_btn1 {
   background-image: url(../img/button_game1.png);
 }
 
-#game_btn1:hover {
-  background-image: url(../img/button_game1h.png);
-}
-
 a#game_btn2 {
   background-image: url(../img/button_game2.png);
 }
 
-a#game_btn2:hover {
-  background-image: url(../img/button_game2h.png);
-}
-
 a#game_btn3 {
   background-image: url(../img/button_game3.png);
-}
-
-a#game_btn3:hover {
-  background-image: url(../img/button_game3h.png);
 }
 
 /* Game 1 */
