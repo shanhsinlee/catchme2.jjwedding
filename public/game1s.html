@@ -15,16 +15,16 @@
 <body>
 	<div class="rank-bg">
 		<ul class="rank-list">
-			<li>Scott Chou</li>
-			<li>Saso Joy</li>
-			<li>Jerry Huang</li>
-			<li>AAA</li>
-			<li>BBB</li>
-			<li>CCC</li>
-			<li>DDD</li>
-			<li>EEE</li>
-			<li>FFF</li>
-			<li>GGG</li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
 		</ul>
 	</div>
 	<div class="separator left"></div>
@@ -67,7 +67,7 @@
 		var timer = null;
 		function pullingRank(){
 			timer = setTimeout( function(){
-				pullingFromServer('', writeBackRank);
+				pullingFromServer('game1', writeBackRank);
 			}, sPullingThreshold );
 		}
 
@@ -75,7 +75,7 @@
 			var ranks = $('.rank-list li');
 			$.each(json, function(index, item){
 				if (index>ranks.size()) return;
-				$(ranks.get(index)).text( item.name );
+				$(ranks.get(index)).text( item.name + '：' + item.score );
 			});
 			pullingRank();
 		}

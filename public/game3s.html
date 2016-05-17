@@ -15,16 +15,16 @@
 <body>
 	<div class="rank-bg">
 		<ul class="rank-list">
-			<li>Scott Chou</li>
-			<li>Saso Joy</li>
-			<li>Jerry Huang</li>
-			<li>AAA</li>
-			<li>BBB</li>
-			<li>CCC</li>
-			<li>DDD</li>
-			<li>EEE</li>
-			<li>FFF</li>
-			<li>GGG</li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
 		</ul>
 	</div>
 	<div class="separator left"></div>
@@ -41,23 +41,24 @@
 
 		$(function(){
 			/*** TODO: just test engery ball ***/
-			setTimeout(startAddEngery, 1000);
+			//setTimeout(startAddEngery, 1000);
 
 			$('.start-button').click(function(){
 				$('.start-button').hide();
-				startAddEngery();
+				//startAddEngery();
 				pullingRank();
 			});
 		});
 
-		var count = 0;
-		function startAddEngery () {
+		//var count = 0;
+		function startAddEngery (count) {
 			if (count <= 4) {
 				$('#energy-ball').attr('src', 'img/energy/energy' + count + '.png');
-				count++;
-				setTimeout(startAddEngery, 1000);
+				//count++;
+				//setTimeout(startAddEngery, 1000);
 				$('body').removeClass('background3s');
 			} else {
+				$('#energy-ball').attr('src', 'img/energy/energy4.png');
 				$('.start-button').show();
 				$('body').addClass('background3s');
 			}
@@ -66,7 +67,7 @@
 		var timer = null;
 		function pullingRank(){
 			timer = setTimeout( function(){
-				pullingFromServer('', writeBackRank);
+				pullingFromServer('game3', writeBackRank);
 			}, sPullingThreshold );
 		}
 
@@ -76,6 +77,7 @@
 				if (index>ranks.size()) return;
 				$(ranks.get(index)).text( item.name );
 			});
+			startAddEngery( Math.ceil(ranks.size()/2) );
 			pullingRank();
 		}
 	</script>
