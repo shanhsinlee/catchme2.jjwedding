@@ -1,10 +1,20 @@
 //-------client-------//
 
+function isLogin(){
+    var isLogin = (isCookieExist('uid') && isCookieExist('uname'));
+    if (!isLogin) {
+        deleteCookie('uid');
+        deleteCookie('uname');
+        deleteCookie('game1_legend');
+    }
+    return isLogin;
+}
+
 function setCookie(cname, cvalue) {
     var d = new Date();
-    d.setTime(d.getTime() + (60*1000));//(1*24*60*60*1000));
+    d.setTime(d.getTime() + (24*60*60*1000));//(1*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
+    document.cookie = cname + "=" + escape(cvalue) + "; " + expires;
 }
 
 function deleteCookie(cname) {
@@ -21,10 +31,16 @@ function getCookie(cname) {
             c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+            return unescape(c.substring(name.length, c.length));
         }
     }
     return "";
+}
+
+function isCookieExist(cname){
+    var value = getCookie(cname);
+    if (value!="") return true;
+    else return false;
 }
 
 function submitToServer(action, value){
@@ -40,8 +56,10 @@ function submitToServer(action, value){
 			success = false;
 		})
 		.always( function () {
-			return success;
+			//return success;
+            submitCallback(success);
 		} );
 
 }
+
 

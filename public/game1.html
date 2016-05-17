@@ -13,6 +13,9 @@
 	<script type="text/javascript" src="js/util.js"></script>
 </head>
 <body class="background1">
+	<div>
+		<h2>最高次數：<span id="game1_legend">0</span></h2>
+	</div>
 	<div class="game_box">
 		<img id="drumDown" class="drum" src="img/drum_down.png" onmousedown="onMouseDown();" onmouseup="onMouseUp();" ontouchstart="onMouseDown();" ontouchend="onMouseUp();">
 		<img id="drumUp" class="drum" src="img/drum_up.png" onmousedown="onMouseDown();" onmouseup="onMouseUp();" ontouchstart="onMouseDown();" ontouchend="onMouseUp();">
@@ -27,23 +30,28 @@
 		var canTouch = true;
 		var countDownSeconds = 20;
 
-		var hitThreashold = 10;
 		var hit = 0;
-		var hitQ = 0;
-		var totalHit = 0;
-		var timer = null;
 		$(function(){
-			isTouch = true;
-			onMouseUp();
+			if (!isLogin() || false) {
+				window.location = "/";
+			} else {
+				isTouch = true;
+				onMouseUp();
 
-			// TODO: check when this game start and then call startGame 
-			startGame();
+				// TODO: check when this game start and then call startGame 
+				startGame();
+			}
+			
 		});
 
 		function startGame() {
-			setTimer();
+			//setTimer();
+			var legend = getCookie('game1_legend');
+			if (legend!="") {
+				$('#game1_legend').html(legend);
+			}
 
-			$('game1_score').text('開始打擊！');
+			$('#game1_score').text('開始打擊！');
 
 			var startTime = new Date();
 			var countdownTimer = setInterval(function(){
@@ -52,9 +60,9 @@
 				if (seconds >= countDownSeconds ) {
 					isTouch = true;
 					canTouch = false;
-					submitHit();
 					clearInterval(countdownTimer);
 					$('#game1_message').text('時間到！');
+					submitHit();
 				} else {
 					$('#game1_message').text('倒數計時 ' + (countDownSeconds - seconds));
 				}
@@ -67,9 +75,7 @@
 				$('#drumUp').hide();
 				$('#drumDown').show();
 				hit++;
-				totalHit++;
-				$('#game1_score').text('打擊次數 ' + totalHit);
-				if (hit>hitThreashold) submitHit();
+				$('#game1_score').text('打擊次數 ' + hit);
 			}
 		}
 		function onMouseUp(){
@@ -80,21 +86,18 @@
 			}
 		}
 		function submitHit(){
-			if (canTouch) {
-				hitQ += hit;
-				hit = 0;
-				var success = submitToServer('hit', hitQ);
-				if (success) hitQ = 0;
-				clearTimeout(timer);
-				setTimer();
+			var legend = $('#game1_legend');
+			if (hit>legend.html()) {
+				legend.html(hit);
+				setCookie('game1_legend', legend.html());
 			}
-			
+
+			var success = submitToServer('hit', hit);
 		}
-		function setTimer(){
-			timer = setTimeout( function(){
-				submitHit();
-			}, 5000);
+		function submitCallback(success){
+
 		}
+
 	</script>
 </body>
 </html>
