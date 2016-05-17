@@ -12,7 +12,8 @@ import redis from './utils/database.js'
 import handlers from './handlers'
 
 // predefine
-let config = yaml.safeLoad(fs.readFileSync(process.cwd() + "/config.yml", 'utf8'))
+let appDir = path.dirname(require.main.filename)
+let config = yaml.safeLoad(fs.readFileSync(`${appDir}/../config.yml`, 'utf8'))
 const PORT = config.serverPort
 let app = express()
 

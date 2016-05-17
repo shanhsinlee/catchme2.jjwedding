@@ -47,7 +47,8 @@ var _handlers2 = _interopRequireDefault(_handlers);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // predefine
-var config = _jsYaml2.default.safeLoad(_fs2.default.readFileSync(process.cwd() + "/config.yml", 'utf8'));
+var appDir = _path2.default.dirname(require.main.filename);
+var config = _jsYaml2.default.safeLoad(_fs2.default.readFileSync(appDir + '/../config.yml', 'utf8'));
 var PORT = config.serverPort;
 var app = (0, _express2.default)();
 
