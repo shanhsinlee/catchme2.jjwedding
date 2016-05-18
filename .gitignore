@@ -1,5 +1,7 @@
 .DS_Store
 
+# Red
+dump.rdb 
 
 # Created by https://www.gitignore.io/api/node
 
