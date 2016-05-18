@@ -47,7 +47,8 @@ var _handlers2 = _interopRequireDefault(_handlers);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // predefine
-var config = _jsYaml2.default.safeLoad(_fs2.default.readFileSync(process.cwd() + "/config.yml", 'utf8'));
+var appDir = _path2.default.dirname(require.main.filename);
+var config = _jsYaml2.default.safeLoad(_fs2.default.readFileSync(appDir + '/../config.yml', 'utf8'));
 var PORT = config.serverPort;
 var app = (0, _express2.default)();
 
@@ -100,6 +101,20 @@ var isAuthorized = function isAuthorized(req, res, next) {
   }
 };
 
+// check game server status for game1, game2, game3
+var isGameOn = function isGameOn(req, res, next) {
+  var key = req.path.split("/")[1];
+  _database2.default.hget("game_status", key, function (err, gameStatus) {
+    if (err) {
+      return res.status(400).json(gameStatus);
+    } else if (gameStatus === "off") {
+      return res.redirect('/list');
+    } else {
+      next();
+    }
+  });
+};
+
 // admin
 var isAdmin = function isAdmin(req, res, next) {
   var credentials = (0, _basicAuth2.default)(req);
@@ -137,13 +152,13 @@ app.get('/', function (req, res) {
 app.get('/list', isAuthorized, function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/list.html'));
 });
-app.get('/game1', isAuthorized, function (req, res) {
+app.get('/game1', [isGameOn, isAuthorized], function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game1.html'));
 });
-app.get('/game2', isAuthorized, function (req, res) {
+app.get('/game2', [isGameOn, isAuthorized], function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game2.html'));
 });
-app.get('/game3', isAuthorized, function (req, res) {
+app.get('/game3', [isGameOn, isAuthorized], function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game3.html'));
 });
 

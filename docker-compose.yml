@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  express:
+    build: docker/express
+    command: npm start
+    volumes:
+      # host_dir:container_dir
+      - .:/app
+    ports:
+      - "5566:5566"
+    links:
+      - redis
+    expose:
+      - "5566"
+    environment:
+      - REDIS_URL=redis://redis:6379
+
+  redis:
+    image: redis:alpine
+    ports:
+      # host_port:container_port
+      - "6379"
+      # - "7372:6379"
+    # expose:
+    #   - "7372"
+
+
+  nginx:
+    build: docker/nginx
+    volumes:
+    #   - ./public:/app/public
+    #   - ./tmp:/app/tmp
+      - .:/app
+    ports:
+      - "80:80"
+    links:
+      - express
