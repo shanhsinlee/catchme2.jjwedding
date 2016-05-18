@@ -35,18 +35,30 @@
 		<img id="server-donz_saso" src="img/donz_saso.png">
 	</div>
 
-	<button class="start-button" type="button">S</button>
+	<button class="start-button" type="button">on</button>
 
 	<script type="text/javascript">
 
 		$(function(){
 
 			$('.start-button').click(function(){
-				$('.start-button').hide();
+				//$('.start-button').hide();
 				//startAddEngery();
 				pullingRank();
+				toggle('game3', onToggled);
 			});
 		});
+
+
+		// triggered by calling server:toggle
+		function onToggled(json){
+			if (json.now_status=='on') {
+				$('.start-button').html('off');
+			} else {
+				$('.start-button').html('on');
+			}
+			
+		}
 
 		//var count = 0;
 		function startAddEngery (count) {
@@ -57,7 +69,7 @@
 				$('body').removeClass('background3s');
 			} else {
 				$('#energy-ball').attr('src', 'img/energy/energy4.png');
-				$('.start-button').show();
+				//$('.start-button').show();
 				$('body').addClass('background3s');
 			}
 		}
@@ -68,6 +80,7 @@
 				pullingFromServer('game3', writeBackRank);
 			}, sPullingThreshold );
 		}
+
 
 		function writeBackRank(json){
 			var ranks = $('.rank-list li');

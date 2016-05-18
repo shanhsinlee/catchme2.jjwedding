@@ -38,32 +38,48 @@
 	</div>
 	<div class="separator right"></div>
 
-	<button class="start-button" type="button">S</button>
+	<button class="start-button" type="button">on</button>
 	<script type="text/javascript">
+
+		var isStart = false;
 
 		$(function(){
 			$('.server-container').hide();
 			$('.start-button').click(function(){
-				$('.start-button').hide();
+				//$('.start-button').hide();
 				$('.server-container').show();
-				startProgress();
-				pullingRank();
+				toggle('game1', onToggled);
 			});
 		});
 
+		// triggered by calling server:toggle
+		function onToggled(json){
+			//alert('return toggle:'+(json.now_status=='on'));
+			if (json.now_status=='on') {
+				isStart = true;
+				startProgress();
+				pullingRank();
+				$('.start-button').html('off');
+			} else {
+				isStart = false;
+				$('.start-button').html('on');
+			}
+			
+		}
+
 		var count = 0;
 		function startProgress () {
-			if (count <= 10) {
+			if (count <= 10 && isStart) {
 				$('.progress-bar').attr('src', 'img/progress/progress' + count + '.png');
 				$('#server-drum').attr('src', 'img/drum.gif');
 				count++;
 				setTimeout(startProgress, 6000);
 			} else { // Game End
 				$('#server-drum').attr('src', 'img/drum_up.png');
-				$('.start-button').show();
+				//$('.start-button').show();
 			}
 		}
-		
+
 		var timer = null;
 		function pullingRank(){
 			timer = setTimeout( function(){

@@ -1,5 +1,5 @@
 //-------server-------//
-var sPullingThreshold = 500;
+var sPullingThreshold = 5000;
 
 function pullingFromServer(game, callback){
 	var post_url = 'rank/'+game;
@@ -9,3 +9,10 @@ function pullingFromServer(game, callback){
     });
 }
 
+function toggle(game, callback){
+    var post_url = 'toggle/'+game;
+
+    $.post(post_url, function(json){
+        callback(json);
+    });
+}

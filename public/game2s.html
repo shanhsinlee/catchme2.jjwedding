@@ -42,9 +42,10 @@
 		<div id="server-game2-message">發現野生愛打電動的崇懿！</div>
 	</div>
 
-	<button class="start-button" type="button">S</button>
+	<button class="start-button" type="button">on</button>
 
 	<script type="text/javascript">
+		var isStart = false;
 		var gameCount = 0;
 
 		$(function(){
@@ -55,14 +56,27 @@
 			prefixedEvent(ball, "AnimationEnd", onBallTransitionEnd);
 
 			$('.start-button').click(function(){
-				$('.start-button').hide();
+				//$('.start-button').hide();
 				$('#server-ball').show();
 				$('#server-game2-message').show();
 
 				moveBall();
 				pullingRank();
+				toggle('game2', onToggled);
 			});
 		});
+
+		// triggered by calling server:toggle
+		function onToggled(json){
+			if (json.now_status=='on') {
+				isStart = true;
+				$('.start-button').html('off');
+			} else {
+				isStart = false;
+				$('.start-button').html('on');
+			}
+			
+		}
 
 		var count = 0;
 		var maxCount = 8;
