@@ -4,9 +4,11 @@ import models from '../utils/models.js'
 let game1result = (res) => {
   models.fetchAllUserData().then((userData) => {
     let rank = userData.sort((a, b) => {
-      return (+a.hit < +b.hit)
+      if (+a.hit > +b.hit) return -1
+      if (+a.hit < +b.hit) return 1
+      return 0
     })
-    rank = rank.map((user) => {
+    let rank2 = rank.slice(0, 10).map((user) => {
       let value = {
         name: user.name,
         score: user.hit,
@@ -14,7 +16,7 @@ let game1result = (res) => {
       }
       return value
     })
-    return res.status(200).json(rank)
+    return res.status(200).json(rank2)
   }).catch((reason) => {
     return res.status(400).json({ msg: reason })
   })
@@ -23,9 +25,11 @@ let game1result = (res) => {
 let game2result = (res) => {
   models.fetchAllUserData().then((userData) => {
     let rank = userData.sort((a, b) => {
-      return (+a.shake < +b.shake)
+      if (+a.shake > +b.shake) return -1
+      if (+a.shake < +b.shake) return 1
+      return 0
     })
-    rank = rank.map((user) => {
+    rank = rank.slice(0, 10).map((user) => {
       let value = {
         name: user.name,
         score: user.shake,

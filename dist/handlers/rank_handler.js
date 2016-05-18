@@ -15,7 +15,7 @@ var game1result = function game1result(res) {
     var rank = userData.sort(function (a, b) {
       return +a.hit < +b.hit;
     });
-    rank = rank.map(function (user) {
+    rank = rank.slice(0, 10).map(function (user) {
       var value = {
         name: user.name,
         score: user.hit,
@@ -34,7 +34,7 @@ var game2result = function game2result(res) {
     var rank = userData.sort(function (a, b) {
       return +a.shake < +b.shake;
     });
-    rank = rank.map(function (user) {
+    rank = rank.slice(0, 10).map(function (user) {
       var value = {
         name: user.name,
         score: user.shake,

@@ -38,13 +38,18 @@
 	<button class="start-button" type="button">on</button>
 
 	<script type="text/javascript">
+ 		var clickedStartBtn = false;
 
 		$(function(){
 
 			$('.start-button').click(function(){
 				//$('.start-button').hide();
 				//startAddEngery();
-				pullingRank();
+
+ 				if (!clickedStartBtn) {
+ 					pullingRank();
+ 					clickedStartBtn = true;
+ 				}
 				toggle('game3', onToggled);
 			});
 		});
@@ -76,9 +81,9 @@
 		
 		var timer = null;
 		function pullingRank(){
-			timer = setTimeout( function(){
+ 			timer = setInterval( function(){
 				pullingFromServer('game3', writeBackRank);
-			}, sPullingThreshold );
+ 			}, sPullingThreshold );
 		}
 
 
@@ -89,7 +94,7 @@
 				$(ranks.get(index)).text( item.name );
 			});
 			startAddEngery( Math.ceil(ranks.size()/2) );
-			pullingRank();
+			// pullingRank();
 		}
 	</script>
 </body>
