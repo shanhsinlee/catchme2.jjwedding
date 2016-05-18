@@ -44,6 +44,7 @@
 		var isStart = false;
 
 		$(function(){
+
 			$('.server-container').hide();
 			$('.start-button').click(function(){
 				//$('.start-button').hide();
@@ -54,7 +55,6 @@
 
 		// triggered by calling server:toggle
 		function onToggled(json){
-			//alert('return toggle:'+(json.now_status=='on'));
 			if (json.now_status=='on') {
 				isStart = true;
 				startProgress();

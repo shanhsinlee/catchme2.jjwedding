@@ -16,3 +16,4 @@ function toggle(game, callback){
         callback(json);
     });
 }
+
