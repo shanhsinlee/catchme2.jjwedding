@@ -30,21 +30,27 @@
 		var shaker = null;
 		var isStart = false;
 		$(function(){
-			setTimer();
-			shaker = new Shake({
-		        threshold: 10,
-				timeout: 100
-		    }).start();
-			$(window).bind('shake', onShake);
-			
-			var ball = document.getElementById("ball");
-			prefixedEvent(ball, "AnimationEnd", onBallTransitionEnd);
+			if (!isLogin()) {
+				window.location = "/";
+			} else {
+				setTimer();
+				shaker = new Shake({
+			        threshold: 10,
+					timeout: 100
+			    }).start();
+				$(window).bind('shake', onShake);
+				
+				var ball = document.getElementById("ball");
+				prefixedEvent(ball, "AnimationEnd", onBallTransitionEnd);
 
-			// TODO: check when this game start and then call startGame 
-			startGame();
+				// TODO: check when this game start and then call startGame 
+				startGame();
+			}
+			
 		});
 
 		function startGame() {
+			
 			moveBall();
 		}
 
@@ -61,11 +67,17 @@
 				shakeQ += shake;
 				shake = 0;
 				var success = submitToServer('shake', shakeQ);
-				if (success) shakeQ = 0;
+			}
+		}
+		function submitCallback(success){
+			if (success) {
+				shakeQ = 0;
 				clearTimeout(timer);
 				setTimer();
+			} else {
+				isStart = false;
+				game2_message.html("捕捉完成！<br />累積搖晃次數 " + totalShake);
 			}
-			
 		}
 		function setTimer(){
 			timer = setTimeout( function(){

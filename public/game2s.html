@@ -15,16 +15,16 @@
 <body>
 	<div class="rank-bg">
 		<ul class="rank-list">
-			<li>Scott Chou</li>
-			<li>Saso Joy</li>
-			<li>Jerry Huang</li>
-			<li>AAA</li>
-			<li>BBB</li>
-			<li>CCC</li>
-			<li>DDD</li>
-			<li>EEE</li>
-			<li>FFF</li>
-			<li>GGG</li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
 		</ul>
 	</div>
 	<div class="separator left"></div>
@@ -48,21 +48,39 @@
 		var gameCount = 0;
 
 		$(function(){
-			$('#server-game2-message').hide();
+			//$('#server-game2-message').hide();
 			$('#server-ball').hide();
 			var ball = document.getElementById("server-ball");;
 			prefixedEvent(ball, "AnimationStart", onBallTransitionStart);
 			prefixedEvent(ball, "AnimationEnd", onBallTransitionEnd);
 
 			$('.start-button').click(function(){
-				$('.start-button').hide();
+				//$('.start-button').hide();
 				$('#server-ball').show();
 				$('#server-game2-message').show();
 
-				moveBall();
-				pullingRank();
+				
+				toggle('game2', onToggled);
 			});
 		});
+
+		// triggered by calling server:toggle
+		function onToggled(json){
+			if (json.now_status=='on') {
+				moveBall();
+				pullingRank();
+				$('.start-button').html('off');
+			} else {
+				$('#server-ball').removeClass('move');
+				$('#server-saso').show();
+				$('.progress-bar').attr('src', 'img/progress/progress0.png');
+				gameCount = 0;
+				count = 0;
+				maxCount = 8;
+				$('.start-button').html('on');
+			}
+			
+		}
 
 		var count = 0;
 		var maxCount = 8;
@@ -71,6 +89,9 @@
 				$('.progress-bar').attr('src', 'img/progress/progress' + count + '.png');
 				count++;
 				setTimeout(startProgress, 3000);
+			} else if (count>10) {
+				$('#server-game2-message').text('成功捕捉崇懿！');
+
 			};
 		}
 
@@ -119,7 +140,7 @@
 		var timer = null;
 		function pullingRank(){
 			timer = setTimeout( function(){
-				pullingFromServer('', writeBackRank);
+				pullingFromServer('game2', writeBackRank);
 			}, sPullingThreshold );
 		}
 
@@ -127,7 +148,7 @@
 			var ranks = $('.rank-list li');
 			$.each(json, function(index, item){
 				if (index>ranks.size()) return;
-				$(ranks.get(index)).text( item.name );
+				$(ranks.get(index)).text( item.name + '：' + item.score );
 			});
 			pullingRank();
 		}
