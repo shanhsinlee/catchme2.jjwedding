@@ -48,10 +48,5 @@ $ npm start
 
 TODO:
 
-1. 邀請碼 (api 已移除)
+1. 有時間的話作個 benchmark
 
-2. 在進入遊戲與遊戲清單頁面 (/list) 時，前端要送 client user name or uid，以判斷是否讓他進入，否則讓他轉回 login 頁
-
-3. 有時間的話作個 benchmark
-
-4. server 放哪？ A: AWS
