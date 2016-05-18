@@ -62,7 +62,6 @@
 			} else {
 				$('.start-button').html('on');
 			}
-			
 		}
 
 		//var count = 0;
@@ -78,14 +77,13 @@
 				$('body').addClass('background3s');
 			}
 		}
-		
+
 		var timer = null;
 		function pullingRank(){
- 			timer = setInterval( function(){
+			timer = setInterval( function(){
 				pullingFromServer('game3', writeBackRank);
- 			}, sPullingThreshold );
+			}, sPullingThreshold );
 		}
-
 
 		function writeBackRank(json){
 			var ranks = $('.rank-list li');
