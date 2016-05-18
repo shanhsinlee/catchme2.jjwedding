@@ -13,9 +13,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var game1result = function game1result(res) {
   _models2.default.fetchAllUserData().then(function (userData) {
     var rank = userData.sort(function (a, b) {
-      return +a.hit < +b.hit;
+      if (+a.hit > +b.hit) return -1;
+      if (+a.hit < +b.hit) return 1;
+      return 0;
     });
-    rank = rank.slice(0, 10).map(function (user) {
+    var rank2 = rank.slice(0, 10).map(function (user) {
       var value = {
         name: user.name,
         score: user.hit,
@@ -23,7 +25,7 @@ var game1result = function game1result(res) {
       };
       return value;
     });
-    return res.status(200).json(rank);
+    return res.status(200).json(rank2);
   }).catch(function (reason) {
     return res.status(400).json({ msg: reason });
   });
@@ -32,7 +34,9 @@ var game1result = function game1result(res) {
 var game2result = function game2result(res) {
   _models2.default.fetchAllUserData().then(function (userData) {
     var rank = userData.sort(function (a, b) {
-      return +a.shake < +b.shake;
+      if (+a.shake > +b.shake) return -1;
+      if (+a.shake < +b.shake) return 1;
+      return 0;
     });
     rank = rank.slice(0, 10).map(function (user) {
       var value = {
