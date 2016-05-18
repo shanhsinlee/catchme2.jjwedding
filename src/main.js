@@ -68,6 +68,22 @@ let isAuthorized = (req, res, next) => {
   }
 }
 
+// check game server status for game1, game2, game3
+let isGameOn = (req, res, next) => {
+  let key = req.path.split("/")[1]
+  redis.hget("game_status", key, (err, gameStatus) => {
+    if (err) {
+      return res.status(400).json(gameStatus)
+    }
+    else if (gameStatus === "off") {
+      return res.redirect('/list')
+    }
+    else {
+      next()
+    }
+  })
+}
+
 // admin
 let isAdmin = (req, res, next) => {
   let credentials = basicAuth(req)
@@ -108,13 +124,13 @@ app.get('/', (req, res) => {
 app.get('/list', isAuthorized, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/list.html'))
 })
-app.get('/game1', isAuthorized, (req, res) => {
+app.get('/game1', [isGameOn, isAuthorized], (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game1.html'))
 })
-app.get('/game2', isAuthorized, (req, res) => {
+app.get('/game2', [isGameOn, isAuthorized], (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game2.html'))
 })
-app.get('/game3', isAuthorized, (req, res) => {
+app.get('/game3', [isGameOn, isAuthorized], (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game3.html'))
 })
 
