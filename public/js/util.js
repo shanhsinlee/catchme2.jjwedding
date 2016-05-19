@@ -1,5 +1,7 @@
 //-------client-------//
 
+var sSubmitThreshold = 3000;
+
 function isLogin(){
     var isLogin = (isCookieExist('uid') && isCookieExist('uname'));
     if (!isLogin) {
@@ -12,7 +14,7 @@ function isLogin(){
 
 function setCookie(cname, cvalue) {
     var d = new Date();
-    d.setTime(d.getTime() + (24*60*60*1000));//(1*24*60*60*1000));
+    d.setTime(d.getTime() + (1*24*60*60*1000));//(1*24*60*60*1000));
     var expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + escape(cvalue) + "; " + expires;
 }
@@ -49,16 +51,20 @@ function submitToServer(action, value){
 	var success = false;
 
 	$.post( post_url, { action: action, value: value } )
-		.done( function (json){
+		.success( function (json){
 			success = true;
+            submitCallback(success, json);
 		})
-		.fail( function (json){
+		.error( function (json){
 			success = false;
-		})
-		.always( function () {
+            if (json==null) json = parseJSON('{"msg":"連線失敗"}');
+            submitCallback(success, json);
+		});
+		//.done( function (json) {
 			//return success;
-            submitCallback(success);
-		} );
+            // if (json==null) json = parseJSON('{"msg":"連線失敗"}');
+            // submitCallback(success, json);
+		//} );
 
 }
 

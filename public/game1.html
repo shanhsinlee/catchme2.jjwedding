@@ -21,7 +21,7 @@
 	</div>
 
 	<h2 id="game1_message"></h2>
-	<h3 id="game1-legend"></h3>
+	<h3 id="game1_legend"></h3>
 
 	<script type="text/javascript">
 		var isTouch = false;
@@ -29,7 +29,10 @@
 		var countDownSeconds = 20;
 
 		var legend = 0;
+		var lastLegend = 0;
 		var hit = 0;
+		var submitTimer = null;
+
 		$(function(){
 			if (!isLogin() || false) {
 				window.location = "/";
@@ -45,14 +48,15 @@
 
 		function startGame() {
 			//setTimer();
-			var legend = parseInt(getCookie('game1-legend'));
+			var legend = parseInt(getCookie('game1_legend'));
 			if (isNaN(legend)) {
 				legend = 0;
 			}
 			if (legend != 0) {
-				$('#game1-legend').html('最高次數:' + legend);
+				lastLegend = legend;
+				$('#game1_legend').html('最高次數:' + legend);
 			}
-
+			
 			$('#game1_score').text('開始打擊！');
 
 			var startTime = new Date();
@@ -88,16 +92,31 @@
 			}
 		}
 		function submitHit(){
-			if (hit>legend) {
+			legend = getCookie('game1_legend');
+			//alert(hit+' vs '+legend + ' = ' + (hit>=legend));
+			if (hit>=legend) {
 				legend = hit;
-				$('#game1-legend').html('最高次數:' + legend);
-				setCookie('game1-legend', legend);
+				$('#game1_legend').html('最高次數:' + legend);
+				setCookie('game1_legend', legend);
+				submitToServer('hit', hit);
+				
 			}
-
-			var success = submitToServer('hit', hit);
 		}
-		function submitCallback(success){
-
+		function submitCallback(success, response){
+			clearTimeout(submitTimer);
+			// 判斷連線失敗 或 server關閉
+			// 1. 連線失敗則每三秒重送
+			// 2. server關閉，倒回前一次最高分
+			if (!success) {
+				if (response.msg=='連線失敗') {
+					submitTimer = setTimeout(submitHit, sSubmitThreshold);
+				} else {
+					$('#game1_score').text('遊戲結束囉！');
+					$('#game1_legend').text('最高次數: ' + lastLegend);
+				}
+			} else {
+				lastLegend = legend;
+			}
 		}
 
 	</script>

@@ -26,9 +26,10 @@
 		var shake = 0;
 		var shakeQ = 0;
 		var totalShake = 0;
-		var timer = null;
 		var shaker = null;
 		var isStart = false;
+		var submitTimer = null;
+
 		$(function(){
 			if (!isLogin()) {
 				window.location = "/";
@@ -66,23 +67,33 @@
 			if (isStart) {
 				shakeQ += shake;
 				shake = 0;
-				var success = submitToServer('shake', shakeQ);
+				submitToServer('shake', shakeQ);
 			}
 		}
-		function submitCallback(success){
+		function submitCallback(success, response){
+			clearTimeout(submitTimer);
+			// 判斷連線失敗 或 server關閉
+			// 1. 連線失敗則每三秒重送
 			if (success) {
+				if (response.shake > totalShake) {
+					totalShake = response.shake;
+					game2_message.text("累積搖晃次數 " + totalShake);
+				}
 				shakeQ = 0;
-				clearTimeout(timer);
 				setTimer();
 			} else {
+				if (response.msg=='連線失敗') {
+					setTimer();
+				} else {
+					game2_message.html("捕捉完成！<br />累積搖晃次數 " + totalShake);
+				}
 				isStart = false;
-				game2_message.html("捕捉完成！<br />累積搖晃次數 " + totalShake);
 			}
 		}
 		function setTimer(){
-			timer = setTimeout( function(){
+			submitTimer = setTimeout( function(){
 				submitShake();
-			}, 5000 );
+			}, sSubmitThreshold );
 		}
 		/* Animation */
 		function moveBall(){

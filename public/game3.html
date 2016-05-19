@@ -126,7 +126,7 @@
 						else secLeft = Math.round(secLeft*10)/10;
 						$('#game3_countdown').text(secLeft);
 						$('#game3_message').show();
-						$('#game3_message').html('傳輸能量中 維持手機平衡！');
+						$('#game3_message').html('傳輸能量中<br />請維持手機平衡！');
 					} else {
 						$('#game3_countdown').text(matchThreashold);
 						$('#game3_message').hide();
@@ -162,9 +162,9 @@
 			return submitToServer('energy', 0);
 		}
 		function submitCallback(success){
-			if (success) {
+			if (success || true) {
 				$('#game3_message').show();
-				$('#game3_message').html('傳輸幸福能量成功！');
+				$('#game3_message').html('傳輸幸福能量<br />成功！');
 			} else {
 				$('#game3_message').show();
 				$('#game3_message').html('幸福能量傳送中...');
