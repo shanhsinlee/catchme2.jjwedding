@@ -68,7 +68,10 @@
 		}
 
 		$(window).resize(function() {
-			reDraw();
+			if (!isFin) {
+				reDraw();
+			}
+			
 		});
 
 		function reDraw() {
