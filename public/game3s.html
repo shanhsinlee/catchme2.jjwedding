@@ -39,7 +39,7 @@
 
 	<script type="text/javascript">
  		var clickedStartBtn = false;
- 		var energySlot = 8;
+ 		var energySlot = 6;
 
 		$(function(){
 
@@ -103,7 +103,7 @@
 			fakeSize++;
 			//console.log(fakeSize + '->' + Math.ceil(fakeSize/energySlot));
 			//startAddEngery( Math.ceil(fakeSize/energySlot) );
-			console.log(json.length + '->' + Math.ceil(ranks.size()/energySlot));
+			console.log(json.length + '->' + Math.ceil(json.length/energySlot));
 			startAddEngery( Math.ceil(json.length/energySlot) );
 			pullingRank();
 		}
