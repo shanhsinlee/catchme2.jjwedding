@@ -113,7 +113,7 @@
 					var foreLineRadius = foreLineAngle*Math.PI/180;
 					var strokeColor = '#FBD633';
 					var matchSeconds = 0;
-					if (Math.abs(backLineRadius - foreLineRadius) < 0.01) { // Match
+					if (Math.abs(backLineRadius - foreLineRadius) < 0.03) { // Match
 						// foreLineRadius = backLineRadius;
 						if (matchStartDate == undefined || matchStartDate == null ) {
 							matchStartDate = new Date();
