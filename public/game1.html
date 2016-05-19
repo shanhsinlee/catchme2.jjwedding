@@ -13,9 +13,6 @@
 	<script type="text/javascript" src="js/util.js"></script>
 </head>
 <body class="background1">
-	<div>
-		<h2>最高次數：<span id="game1_legend">0</span></h2>
-	</div>
 	<div class="game_box">
 		<img id="drumDown" class="drum" src="img/drum_down.png" onmousedown="onMouseDown();" onmouseup="onMouseUp();" ontouchstart="onMouseDown();" ontouchend="onMouseUp();">
 		<img id="drumUp" class="drum" src="img/drum_up.png" onmousedown="onMouseDown();" onmouseup="onMouseUp();" ontouchstart="onMouseDown();" ontouchend="onMouseUp();">
@@ -24,12 +21,14 @@
 	</div>
 
 	<h2 id="game1_message"></h2>
+	<h3 id="game1-legend"></h3>
 
 	<script type="text/javascript">
 		var isTouch = false;
 		var canTouch = true;
 		var countDownSeconds = 20;
 
+		var legend = 0;
 		var hit = 0;
 		$(function(){
 			if (!isLogin() || false) {
@@ -46,9 +45,12 @@
 
 		function startGame() {
 			//setTimer();
-			var legend = getCookie('game1_legend');
-			if (legend!="") {
-				$('#game1_legend').html(legend);
+			var legend = parseInt(getCookie('game1-legend'));
+			if (isNaN(legend)) {
+				legend = 0;
+			}
+			if (legend != 0) {
+				$('#game1-legend').html('最高次數:' + legend);
 			}
 
 			$('#game1_score').text('開始打擊！');
@@ -86,10 +88,10 @@
 			}
 		}
 		function submitHit(){
-			var legend = $('#game1_legend');
-			if (hit>legend.html()) {
-				legend.html(hit);
-				setCookie('game1_legend', legend.html());
+			if (hit>legend) {
+				legend = hit;
+				$('#game1-legend').html('最高次數:' + legend);
+				setCookie('game1-legend', legend);
 			}
 
 			var success = submitToServer('hit', hit);

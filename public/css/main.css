@@ -77,6 +77,17 @@ a#game_btn3 {
   margin: 1%;
 }
 
+#game1-legend {
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moztransform: translate(-50%, -50%);
+  -mstransform: translate(-50%, -50%);
+  -otransform: translate(-50%, -50%);
+}
+
 #game1_score {
   text-align: center;
   margin: 0px;
