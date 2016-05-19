@@ -58,16 +58,6 @@ let isUidValid = (req, res, next) => {
   })
 }
 
-// TODO if no uid or user name, should redirect to index page
-let isAuthorized = (req, res, next) => {
-  if (true) {
-    return next()
-  }
-  else {
-    return res.redirect('/')
-  }
-}
-
 // check game server status for game1, game2, game3
 let isGameOn = (req, res, next) => {
   let key = req.path.split("/")[1]
@@ -121,16 +111,16 @@ app.use('/js', express.static(__dirname + '/../public/js'))
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/login.html'))
 })
-app.get('/list', isAuthorized, (req, res) => {
+app.get('/list', (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/list.html'))
 })
-app.get('/game1', [isGameOn, isAuthorized], (req, res) => {
+app.get('/game1', isGameOn, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game1.html'))
 })
-app.get('/game2', [isGameOn, isAuthorized], (req, res) => {
+app.get('/game2', isGameOn, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game2.html'))
 })
-app.get('/game3', [isGameOn, isAuthorized], (req, res) => {
+app.get('/game3', isGameOn, (req, res) => {
   res.sendFile(path.join(__dirname + '/../public/game3.html'))
 })
 

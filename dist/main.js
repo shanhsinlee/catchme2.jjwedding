@@ -92,15 +92,6 @@ var isUidValid = function isUidValid(req, res, next) {
   });
 };
 
-// TODO if no uid or user name, should redirect to index page
-var isAuthorized = function isAuthorized(req, res, next) {
-  if (true) {
-    return next();
-  } else {
-    return res.redirect('/');
-  }
-};
-
 // check game server status for game1, game2, game3
 var isGameOn = function isGameOn(req, res, next) {
   var key = req.path.split("/")[1];
@@ -149,16 +140,16 @@ app.use('/js', _express2.default.static(__dirname + '/../public/js'));
 app.get('/', function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/login.html'));
 });
-app.get('/list', isAuthorized, function (req, res) {
+app.get('/list', function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/list.html'));
 });
-app.get('/game1', [isGameOn, isAuthorized], function (req, res) {
+app.get('/game1', isGameOn, function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game1.html'));
 });
-app.get('/game2', [isGameOn, isAuthorized], function (req, res) {
+app.get('/game2', isGameOn, function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game2.html'));
 });
-app.get('/game3', [isGameOn, isAuthorized], function (req, res) {
+app.get('/game3', isGameOn, function (req, res) {
   res.sendFile(_path2.default.join(__dirname + '/../public/game3.html'));
 });
 

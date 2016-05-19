@@ -55,7 +55,12 @@ let game3result = (res) => {
     })
   })
   .then((result) => {
-    let jsonData = result.map((item) => {
+    // unique
+    let uniqueResultArray = result.filter((elem, pos) => {
+      return result.indexOf(elem) == pos
+    })
+    // 只拿 35 個
+    let jsonData = uniqueResultArray.slice(0, 35).map((item) => {
       let bits = item.split("|")
       return { name: bits[1] }
     })

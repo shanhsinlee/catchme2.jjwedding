@@ -62,7 +62,12 @@ var game3result = function game3result(res) {
       }
     });
   }).then(function (result) {
-    var jsonData = result.map(function (item) {
+    // unique
+    var uniqueResultArray = result.filter(function (elem, pos) {
+      return result.indexOf(elem) == pos;
+    });
+    // 只拿 35 個
+    var jsonData = uniqueResultArray.slice(0, 35).map(function (item) {
       var bits = item.split("|");
       return { name: bits[1] };
     });

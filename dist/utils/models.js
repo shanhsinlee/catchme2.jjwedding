@@ -24,8 +24,7 @@ var models = function () {
   }, {
     key: "fetchGame3Result",
     value: function fetchGame3Result(callback) {
-      // 只拿前 35 個
-      _database2.default.lrange("game3_result", 0, 34, function (err, result) {
+      _database2.default.lrange("game3_result", 0, -1, function (err, result) {
         if (err) {
           callback(err, null);
         } else {

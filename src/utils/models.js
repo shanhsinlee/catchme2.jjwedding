@@ -9,8 +9,7 @@ class models {
   }
 
   fetchGame3Result(callback) {
-    // 只拿前 35 個
-    redis.lrange("game3_result", 0, 34, (err, result) => {
+    redis.lrange("game3_result", 0, -1, (err, result) => {
       if (err) {
         callback(err, null)
       }
