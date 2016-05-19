@@ -28,6 +28,7 @@
 		var prevCanvasWidth = 0, prevCanvasHeight = 0;
 		var matchStartDate;
 
+		var isFin = false;
 		var matchThreashold = 10;
 		var secLeft = matchThreashold;
 
@@ -139,13 +140,14 @@
 					context.lineTo(canvas.width/2 + costmerAddedWidth, canvas.height);
 					context.stroke();
 					context.closePath();
-					if (matchSeconds > matchThreashold) {
+					if (matchSeconds > matchThreashold && !isFin) {
 						finishTask();
 					}
 				}
 			}
 		}
 		function finishTask() {
+			isFin = true;
 			gyro.stopTracking();
 			var canvas = document.getElementById("back_convas");
 			var context = canvas.getContext("2d");
@@ -155,13 +157,13 @@
 			context.clearRect(0, 0, canvas.width, canvas.height);
 			$('body').css('background-color', '#FBD633');
 
-			var success = submitEnergy();
+			submitEnergy();
 		}
 
 		function submitEnergy(){
 			return submitToServer('energy', 0);
 		}
-		function submitCallback(success){
+		function submitCallback(success, response){
 			if (success || true) {
 				$('#game3_message').show();
 				$('#game3_message').html('傳輸幸福能量<br />成功！');
