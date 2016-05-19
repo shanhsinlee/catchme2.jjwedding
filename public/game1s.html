@@ -38,7 +38,7 @@
 	</div>
 	<div class="separator right"></div>
 
-	<button class="start-button" type="button">on</button>
+	<button class="start-button" type="button">開始</button>
 	<script type="text/javascript">
 
 		var isStart = false;
@@ -48,7 +48,7 @@
 			$('.server-container').hide();
 			$('.start-button').click(function(){
 				//$('.start-button').hide();
-				$('.server-container').show();
+				//$('.server-container').show();
 				toggle('game1', onToggled);
 			});
 		});
@@ -57,32 +57,45 @@
 		function onToggled(json){
 			if (json.now_status=='on') {
 				isStart = true;
+				if (count>10) {
+					count = 0;
+				}
+				$('.server-container').show();
 				startProgress();
 				pullingRank();
-				$('.start-button').html('off');
+				$('.start-button').html('停止');
 			} else {
 				isStart = false;
-				$('.start-button').html('on');
+				clearTimeout(pullingTimer);
+				clearTimeout(progressTimer);
+				if (count>10) {
+					$('.start-button').html('重新開始');
+				} else {
+					$('.start-button').html('繼續');
+				}
+				
 			}
 			
 		}
 
 		var count = 0;
+		var progressTimer = null
 		function startProgress () {
 			if (count <= 10 && isStart) {
 				$('.progress-bar').attr('src', 'img/progress/progress' + count + '.png');
 				$('#server-drum').attr('src', 'img/drum.gif');
 				count++;
-				setTimeout(startProgress, 6000);
+				progressTimer = setTimeout(startProgress, 6000);
 			} else { // Game End
 				$('#server-drum').attr('src', 'img/drum_up.png');
+				toggle('game1', onToggled);
 				//$('.start-button').show();
 			}
 		}
 
-		var timer = null;
+		var pullingTimer = null;
 		function pullingRank(){
-			timer = setTimeout( function(){
+			pullingTimer = setTimeout( function(){
 				pullingFromServer('game1', writeBackRank);
 			}, sPullingThreshold );
 		}

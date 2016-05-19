@@ -1,5 +1,5 @@
 //-------server-------//
-var sPullingThreshold = 5000;
+var sPullingThreshold = 1000;
 
 function pullingFromServer(game, callback){
 	var post_url = 'rank/'+game;

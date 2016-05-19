@@ -35,10 +35,11 @@
 		<img id="server-donz_saso" src="img/donz_saso.png">
 	</div>
 
-	<button class="start-button" type="button">on</button>
+	<button class="start-button" type="button">開始</button>
 
 	<script type="text/javascript">
  		var clickedStartBtn = false;
+ 		var energySlot = 8;
 
 		$(function(){
 
@@ -46,10 +47,10 @@
 				//$('.start-button').hide();
 				//startAddEngery();
 
- 				if (!clickedStartBtn) {
- 					pullingRank();
- 					clickedStartBtn = true;
- 				}
+ 				//if (!clickedStartBtn) {
+ 				//	pullingRank();
+ 				//	clickedStartBtn = true;
+ 				//}
 				toggle('game3', onToggled);
 			});
 		});
@@ -58,41 +59,53 @@
 		// triggered by calling server:toggle
 		function onToggled(json){
 			if (json.now_status=='on') {
-				$('.start-button').html('off');
+				isFin = false;
+				pullingRank();
+				$('.start-button').html('停止');
 			} else {
-				$('.start-button').html('on');
+				clearTimeout(pullingTimer);
+				if (isFin) {
+					fakeSize = 0;
+					$('.start-button').html('重新開始');
+				} else {
+					$('.start-button').html('繼續');
+				}
 			}
 		}
 
-		//var count = 0;
+		var isFin = false;
 		function startAddEngery (count) {
 			if (count <= 4) {
 				$('#energy-ball').attr('src', 'img/energy/energy' + count + '.png');
-				//count++;
-				//setTimeout(startAddEngery, 1000);
 				$('body').removeClass('background3s');
 			} else {
+				isFin = true;
 				$('#energy-ball').attr('src', 'img/energy/energy4.png');
-				//$('.start-button').show();
 				$('body').addClass('background3s');
+				toggle('game3', onToggled);
 			}
 		}
 
-		var timer = null;
+		var pullingTimer = null;
 		function pullingRank(){
-			timer = setInterval( function(){
+			pullingTimer = setTimeout( function(){
 				pullingFromServer('game3', writeBackRank);
 			}, sPullingThreshold );
 		}
 
+		var fakeSize = 0;
 		function writeBackRank(json){
 			var ranks = $('.rank-list li');
 			$.each(json, function(index, item){
 				if (index>ranks.size()) return;
 				$(ranks.get(index)).text( item.name );
 			});
-			startAddEngery( Math.ceil(ranks.size()/2) );
-			// pullingRank();
+			fakeSize++;
+			//console.log(fakeSize + '->' + Math.ceil(fakeSize/energySlot));
+			//startAddEngery( Math.ceil(fakeSize/energySlot) );
+			console.log(ranks.size() + '->' + Math.ceil(ranks.size()/energySlot));
+			startAddEngery( Math.ceil(ranks.size()/energySlot) );
+			pullingRank();
 		}
 	</script>
 </body>

@@ -42,9 +42,10 @@
 		<div id="server-game2-message">發現野生愛打電動的崇懿！</div>
 	</div>
 
-	<button class="start-button" type="button">S</button>
+	<button class="start-button" type="button">開始</button>
 
 	<script type="text/javascript">
+		var isFin = false;
 		var gameCount = 0;
 
 		$(function(){
@@ -59,7 +60,6 @@
 				$('#server-ball').show();
 				$('#server-game2-message').show();
 
-				
 				toggle('game2', onToggled);
 			});
 		});
@@ -69,29 +69,36 @@
 			if (json.now_status=='on') {
 				moveBall();
 				pullingRank();
-				$('.start-button').html('off');
+				$('.start-button').html('停止');
 			} else {
-				$('#server-ball').removeClass('move');
-				$('#server-saso').show();
-				$('.progress-bar').attr('src', 'img/progress/progress0.png');
-				gameCount = 0;
-				count = 0;
-				maxCount = 8;
-				$('.start-button').html('on');
+				if (!isFin) {
+					$('#server-ball').removeClass('move');
+					$('#server-saso').show();
+					$('.progress-bar').attr('src', 'img/progress/progress0.png');
+					gameCount = 0;
+					count = 0;
+					maxCount = 8;
+				}
+				clearTimeout(pullingTimer);
+				clearTimeout(progressTimer);
+				$('.start-button').html('重新開始');
+				isFin = false;
 			}
 			
 		}
 
 		var count = 0;
 		var maxCount = 8;
+		var progressTimer = null;
 		function startProgress () {
 			if (count <= maxCount) {
 				$('.progress-bar').attr('src', 'img/progress/progress' + count + '.png');
 				count++;
-				setTimeout(startProgress, 3000);
+				progressTimer = setTimeout(startProgress, 3000);
 			} else if (count>10) {
 				$('#server-game2-message').text('成功捕捉崇懿！');
-
+				isFin = true;
+				toggle('game2', onToggled);
 			};
 		}
 
@@ -137,9 +144,9 @@
 			}
 		}
 
-		var timer = null;
+		var pullingTimer = null;
 		function pullingRank(){
-			timer = setTimeout( function(){
+			pullingTimer = setTimeout( function(){
 				pullingFromServer('game2', writeBackRank);
 			}, sPullingThreshold );
 		}
