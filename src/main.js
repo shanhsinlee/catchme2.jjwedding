@@ -151,8 +151,8 @@ let checkTokenAndParams = (req, res, next) => {
   let game = req.params.game
   let option = req.params.option
   let isKeyValid = (req.params.key === "55665566")
-  let isGameParamsValid = ["game1", "game2", "game3"].includes(game)
-  let isOptionParamsValid = ["set", "reset", "clear"].includes(option)
+  let isGameParamsValid = (["game1", "game2", "game3"].indexOf(game) > -1)
+  let isOptionParamsValid = (["set", "reset", "clear"].indexOf(option) > -1)
 
   if (isKeyValid && isGameParamsValid && isOptionParamsValid) {
     next()

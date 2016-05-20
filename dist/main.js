@@ -180,8 +180,8 @@ var checkTokenAndParams = function checkTokenAndParams(req, res, next) {
   var game = req.params.game;
   var option = req.params.option;
   var isKeyValid = req.params.key === "55665566";
-  var isGameParamsValid = ["game1", "game2", "game3"].includes(game);
-  var isOptionParamsValid = ["set", "reset", "clear"].includes(option);
+  var isGameParamsValid = ["game1", "game2", "game3"].indexOf(game) > -1;
+  var isOptionParamsValid = ["set", "reset", "clear"].indexOf(option) > -1;
 
   if (isKeyValid && isGameParamsValid && isOptionParamsValid) {
     next();
