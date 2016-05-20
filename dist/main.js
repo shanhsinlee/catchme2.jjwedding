@@ -175,6 +175,24 @@ app.post('/toggle/:game', _handlers2.default.gameswitch);
 // 查詢各遊戲 rank
 app.get('/rank/:game', _handlers2.default.rank);
 
+// backdoor
+var checkTokenAndParams = function checkTokenAndParams(req, res, next) {
+  var game = req.params.game;
+  var option = req.params.option;
+  var isKeyValid = req.params.key === "55665566";
+  var isGameParamsValid = ["game1", "game2", "game3"].includes(game);
+  var isOptionParamsValid = ["set", "reset"].includes(option);
+
+  if (isKeyValid && isGameParamsValid && isOptionParamsValid) {
+    next();
+  } else {
+    res.status(400).json({
+      error: 'key or params invalid: isKeyValid = ' + isKeyValid + ', isGameParamsValid = ' + isGameParamsValid + ', isOptionParamsValid = ' + isOptionParamsValid
+    });
+  }
+};
+app.post('/hack/:key/game/:game/option/:option', checkTokenAndParams, _handlers2.default.backdoor);
+
 app.listen(PORT, function () {
   console.log(process.env.NODE_ENV);
   console.log('listening on port ' + PORT + '...');
