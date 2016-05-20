@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>HACK</title>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -9,65 +10,33 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 </head>
 <body>
-  <div class="container">
-    <p class="navbar-text navbar-right">HACK!</p>
+  <div class="container-fluid">
 
-    <div id="game1_hack" class="panel panel-default">
-      <div class="panel-body">
-        Game1 HACK!
-        <hr>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default" onClick="hack('game1', 'set')">HACK!</button>
-          </div>
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default" onClick="hack('game1', 'reset')">RESET!</button>
-          </div>
-        </div>
+    <div class="row"><div class="col-xs-12">
+      <h3>Game1 HACK!</h3>
+      <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game1', 'set')">HACK!</button>
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game1', 'reset')">RESET!</button>
       </div>
-    </div>
 
-    <div id="game2_hack" class="panel panel-default">
-      <div class="panel-body">
-        Game2 HACK!
-        <hr>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default" onClick="hack('game2', 'set')">HACK!</button>
-          </div>
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default" onClick="hack('game2', 'reset')">RESET!</button>
-          </div>
-        </div>
+      <h3>Game2 HACK!</h3>
+      <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game1', 'set')">HACK!</button>
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game1', 'reset')">RESET!</button>
       </div>
-    </div>
 
-    <div id="game3_hack" class="panel panel-default">
-      <div class="panel-body">
-        Game3 HACK!
-        <hr>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default" onClick="hack('game3', 'set')">HACK!</button>
-          </div>
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default" onClick="hack('game3', 'reset')">RESET!</button>
-          </div>
-        </div>
+      <h3>Game3 HACK!</h3>
+      <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game3', 'set')">HACK!</button>
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game3', 'reset')">RESET!</button>
       </div>
-    </div>
 
-    <div id="game3_hack" class="panel panel-default">
-      <div class="panel-body">
-        Game3 HACK!
-        <hr>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-default" onClick="clearGame3Result()">RESET GAME3 RESULT!</button>
-          </div>
-        </div>
+      <h3>Game3 CLEAR!</h3>
+      <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button type="button" class="btn btn-default col-xs-12" onClick="clearGame3Result()">RESET GAME3 RESULT!</button>
       </div>
-    </div>
+
+    </div></div>
   </div>
 </body>
 <script>
