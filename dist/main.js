@@ -181,7 +181,7 @@ var checkTokenAndParams = function checkTokenAndParams(req, res, next) {
   var option = req.params.option;
   var isKeyValid = req.params.key === "55665566";
   var isGameParamsValid = ["game1", "game2", "game3"].includes(game);
-  var isOptionParamsValid = ["set", "reset"].includes(option);
+  var isOptionParamsValid = ["set", "reset", "clear"].includes(option);
 
   if (isKeyValid && isGameParamsValid && isOptionParamsValid) {
     next();
@@ -192,6 +192,9 @@ var checkTokenAndParams = function checkTokenAndParams(req, res, next) {
   }
 };
 app.post('/hack/:key/game/:game/option/:option', checkTokenAndParams, _handlers2.default.backdoor);
+app.get('/hackggjj', isAdmin, function (req, res) {
+  res.sendFile(_path2.default.join(__dirname + '/../public/hack.html'));
+});
 
 app.listen(PORT, function () {
   console.log(process.env.NODE_ENV);

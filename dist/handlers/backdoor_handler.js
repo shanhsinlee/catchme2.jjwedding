@@ -121,7 +121,7 @@ var resetGame3 = function resetGame3(res) {
   }).then(function (result) {
     return res.status(200).json({ msg: "Reset3 成功" });
   }).catch(function (reason) {
-    return res.status(400).json({ msg: reason });
+    return res.status(400).json({ error: reason });
   });
 };
 
@@ -152,8 +152,16 @@ module.exports = function (req, res) {
     case "game3":
       if (option === "set") {
         setGame3(res);
-      } else {
+      } else if (option === "reset") {
         resetGame3(res);
+      } else {
+        _database2.default.del("game3_result", function (err) {
+          if (err) {
+            return res.status(400).json({ error: "清除失敗" });
+          } else {
+            return res.status(200).json({ msg: "成功" });
+          }
+        });
       }
       break;
   }

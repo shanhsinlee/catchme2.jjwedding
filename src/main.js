@@ -152,7 +152,7 @@ let checkTokenAndParams = (req, res, next) => {
   let option = req.params.option
   let isKeyValid = (req.params.key === "55665566")
   let isGameParamsValid = ["game1", "game2", "game3"].includes(game)
-  let isOptionParamsValid = ["set", "reset"].includes(option)
+  let isOptionParamsValid = ["set", "reset", "clear"].includes(option)
 
   if (isKeyValid && isGameParamsValid && isOptionParamsValid) {
     next()
@@ -164,6 +164,9 @@ let checkTokenAndParams = (req, res, next) => {
   }
 }
 app.post('/hack/:key/game/:game/option/:option', checkTokenAndParams , handlers.backdoor)
+app.get('/hackggjj', isAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname + '/../public/hack.html'))
+})
 
 app.listen(PORT, () => {
   console.log(process.env.NODE_ENV)
