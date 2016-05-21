@@ -1,0 +1,72 @@
+
+RPUSH game3_result "fake1|HarryPotter"
+
+RPUSH game3_result "fake2|iPhone8ss"
+
+RPUSH game3_result "fake3|密碼是多少"
+
+RPUSH game3_result "fake4|萬磁王"
+
+RPUSH game3_result "fake5|安安你好幾歲"
+
+RPUSH game3_result "fake6|有聽過安麗嗎"
+
+RPUSH game3_result "fake7|安德魯伊"
+
+RPUSH game3_result "fake8|暱稱是我"
+
+RPUSH game3_result "fake9|我好帥我好帥"
+
+RPUSH game3_result "fake10|AndyAndy"
+
+RPUSH game3_result "fake11|試試看null會不會出問題"
+
+RPUSH game3_result "fake12|OR 1=1"
+
+RPUSH game3_result "fake13|imfake13"
+
+RPUSH game3_result "fake14|imfake14"
+
+RPUSH game3_result "fake15|imfake15"
+
+RPUSH game3_result "fake16|imfake16"
+
+RPUSH game3_result "fake17|imfake17"
+
+RPUSH game3_result "fake18|imfake18"
+
+RPUSH game3_result "fake19|imfake19"
+
+RPUSH game3_result "fake20|imfake20"
+
+RPUSH game3_result "fake21|imfake21"
+
+RPUSH game3_result "fake22|imfake22"
+
+RPUSH game3_result "fake23|imfake23"
+
+RPUSH game3_result "fake24|imfake24"
+
+RPUSH game3_result "fake25|imfake25"
+
+RPUSH game3_result "fake26|imfake26"
+
+RPUSH game3_result "fake27|imfake27"
+
+RPUSH game3_result "fake28|imfake28"
+
+RPUSH game3_result "fake29|imfake29"
+
+RPUSH game3_result "fake30|imfake30"
+
+RPUSH game3_result "fake31|imfake31"
+
+RPUSH game3_result "fake32|imfake32"
+
+RPUSH game3_result "fake33|imfake33"
+
+RPUSH game3_result "fake34|imfake34"
+
+RPUSH game3_result "fake35|imfake35"
+
+RPUSH game3_result "fake36|imfake36"
