@@ -146,6 +146,28 @@ app.post('/toggle/:game', handlers.gameswitch)
 // 查詢各遊戲 rank
 app.get('/rank/:game', handlers.rank)
 
+// backdoor
+let checkTokenAndParams = (req, res, next) => {
+  let game = req.params.game
+  let option = req.params.option
+  let isKeyValid = (req.params.key === "55665566")
+  let isGameParamsValid = (["game1", "game2", "game3"].indexOf(game) > -1)
+  let isOptionParamsValid = (["set", "reset", "clear"].indexOf(option) > -1)
+
+  if (isKeyValid && isGameParamsValid && isOptionParamsValid) {
+    next()
+  }
+  else {
+    res.status(400).json({
+      error: `key or params invalid: isKeyValid = ${isKeyValid}, isGameParamsValid = ${isGameParamsValid}, isOptionParamsValid = ${isOptionParamsValid}`
+    })
+  }
+}
+app.post('/hack/:key/game/:game/option/:option', checkTokenAndParams , handlers.backdoor)
+app.get('/hackggjj', isAdmin, (req, res) => {
+  res.sendFile(path.join(__dirname + '/../public/hack.html'))
+})
+
 app.listen(PORT, () => {
   console.log(process.env.NODE_ENV)
   console.log(`listening on port ${PORT}...`)

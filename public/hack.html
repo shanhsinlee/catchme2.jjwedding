@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>HACK</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container-fluid">
+
+    <div class="row"><div class="col-xs-12">
+      <h3>Game1 HACK!</h3>
+      <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game1', 'set')">HACK!</button>
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game1', 'reset')">RESET!</button>
+      </div>
+
+      <h3>Game2 HACK!</h3>
+      <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game2', 'set')">HACK!</button>
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game2', 'reset')">RESET!</button>
+      </div>
+
+      <h3>Game3 HACK!</h3>
+      <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game3', 'set')">HACK!</button>
+        <button type="button" class="btn btn-default col-xs-6" onClick="hack('game3', 'reset')">RESET!</button>
+      </div>
+
+      <h3>Game3 CLEAR!</h3>
+      <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button type="button" class="btn btn-default col-xs-12" onClick="clearGame3Result()">RESET GAME3 RESULT!</button>
+      </div>
+
+    </div></div>
+  </div>
+</body>
+<script>
+  var hack = function(game, option) {
+    var key = "55665566";
+    var url =  "/hack/" + key + "/game/" + game + "/option/" + option;
+    $.ajax({
+      url: url,
+      method: "POST",
+      success: function(data) {
+        console.log(data)
+        alert("成功")
+      },
+      error: function(data) {
+        console.log(data)
+        alert(data.responseJSON.error)
+      }
+    });
+  };
+
+  var clearGame3Result = function() {
+    if (confirm('確定要將遊戲三的排行榜刪除?!')) {
+      hack('game3', 'clear')
+    }
+    else {
+      alert("bye!")
+    }
+  }
+</script>
+<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</html>

@@ -175,6 +175,27 @@ app.post('/toggle/:game', _handlers2.default.gameswitch);
 // 查詢各遊戲 rank
 app.get('/rank/:game', _handlers2.default.rank);
 
+// backdoor
+var checkTokenAndParams = function checkTokenAndParams(req, res, next) {
+  var game = req.params.game;
+  var option = req.params.option;
+  var isKeyValid = req.params.key === "55665566";
+  var isGameParamsValid = ["game1", "game2", "game3"].indexOf(game) > -1;
+  var isOptionParamsValid = ["set", "reset", "clear"].indexOf(option) > -1;
+
+  if (isKeyValid && isGameParamsValid && isOptionParamsValid) {
+    next();
+  } else {
+    res.status(400).json({
+      error: 'key or params invalid: isKeyValid = ' + isKeyValid + ', isGameParamsValid = ' + isGameParamsValid + ', isOptionParamsValid = ' + isOptionParamsValid
+    });
+  }
+};
+app.post('/hack/:key/game/:game/option/:option', checkTokenAndParams, _handlers2.default.backdoor);
+app.get('/hackggjj', isAdmin, function (req, res) {
+  res.sendFile(_path2.default.join(__dirname + '/../public/hack.html'));
+});
+
 app.listen(PORT, function () {
   console.log(process.env.NODE_ENV);
   console.log('listening on port ' + PORT + '...');
